@@ -112,3 +112,5 @@ bindDraftForm('validation-form','startups-business-888399-validation','validatio
 bindDraftForm('fit-form','startups-business-888399-pain-solution','fit-status','clear-fit');
 
 bindDraftForm('bmc-form','startups-business-888399-bmc','bmc-status','clear-bmc');
+
+bindDraftForm('digital-tools-form','startups-business-888399-digital-tools','digital-tools-status','clear-digital-tools');
