@@ -135,6 +135,27 @@
       </form>
     </section>
 
+    <section class="validation-workspace digital-tools-workspace">
+      <div class="workspace-head"><div><p class="stage">TOOL → EVIDENCE → DECISION</p><h4>Digital Tools Decision Workspace</h4></div><span id="digital-tools-status">Not saved yet</span></div>
+      <p class="workspace-intro">Choose tools because they help you learn, test, measure or operate—not because they are popular. Record what each tool produces and whether it deserves a place in the next experiment.</p>
+      <form id="digital-tools-form">
+        <div class="digital-tools-grid">
+          <div class="digital-tool-card"><strong>Research</strong><p>Discover market, competitors, trends and customer context.</p><label>Tool / Platform<input name="researchTool" placeholder="Tool used"></label><label>Purpose<textarea name="researchPurpose" rows="2" placeholder="What question will this tool help answer?"></textarea></label><label>Evidence / Output<textarea name="researchEvidence" rows="3" placeholder="What evidence or artifact did it produce?"></textarea></label></div>
+          <div class="digital-tool-card"><strong>Survey & Interview</strong><p>Collect structured and qualitative customer evidence.</p><label>Tool / Platform<input name="surveyTool" placeholder="Tool used"></label><label>Purpose<textarea name="surveyPurpose" rows="2" placeholder="What customer evidence will you collect?"></textarea></label><label>Evidence / Output<textarea name="surveyEvidence" rows="3" placeholder="Responses, interview notes, patterns..."></textarea></label></div>
+          <div class="digital-tool-card"><strong>Analysis</strong><p>Organize findings and turn raw data into useful learning.</p><label>Tool / Platform<input name="analysisTool" placeholder="Tool used"></label><label>Purpose<textarea name="analysisPurpose" rows="2" placeholder="What will you analyze?"></textarea></label><label>Evidence / Output<textarea name="analysisEvidence" rows="3" placeholder="Tables, themes, charts, findings..."></textarea></label></div>
+          <div class="digital-tool-card"><strong>Collaboration</strong><p>Coordinate evidence, tasks and decisions across the startup team.</p><label>Tool / Platform<input name="collaborationTool" placeholder="Tool used"></label><label>Purpose<textarea name="collaborationPurpose" rows="2" placeholder="How will the team use it?"></textarea></label><label>Evidence / Output<textarea name="collaborationEvidence" rows="3" placeholder="Shared board, decisions, task evidence..."></textarea></label></div>
+          <div class="digital-tool-card"><strong>Communication</strong><p>Present the concept and reach potential customers for learning.</p><label>Tool / Platform<input name="communicationTool" placeholder="Tool used"></label><label>Purpose<textarea name="communicationPurpose" rows="2" placeholder="Who will you reach and why?"></textarea></label><label>Evidence / Output<textarea name="communicationEvidence" rows="3" placeholder="Landing page, message test, response..."></textarea></label></div>
+          <div class="digital-tool-card"><strong>Prototype Preparation</strong><p>Prepare the evidence and assets that will move into 888498.</p><label>Tool / Platform<input name="prototypeTool" placeholder="Tool used"></label><label>Purpose<textarea name="prototypePurpose" rows="2" placeholder="What will this help you prototype?"></textarea></label><label>Evidence / Output<textarea name="prototypeEvidence" rows="3" placeholder="Sketch, flow, mock-up, specification..."></textarea></label></div>
+        </div>
+        <div class="form-grid digital-decision">
+          <label>Most Useful Tool & Why<textarea name="mostUseful" rows="3" placeholder="Which tool produced the strongest learning or evidence?"></textarea></label>
+          <label>Tool to Replace / Stop Using<textarea name="replaceTool" rows="3" placeholder="Which tool added little value, and what will you change?"></textarea></label>
+        </div>
+        <label>Evidence to Carry into 888498<textarea name="prototypeHandoff" rows="4" placeholder="What validated evidence, customer insight, requirements or assets should guide the prototype?"></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Digital Tools</button><button type="button" id="clear-digital-tools" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
     <section class="validation-workspace bmc-workspace">
       <div class="workspace-head"><div><p class="stage">BUSINESS MODEL HYPOTHESIS</p><h4>Business Model Canvas</h4></div><span id="bmc-status">Not saved yet</span></div>
       <p class="workspace-intro">Connect the evidence into one business model. Treat every block as a hypothesis that can change when new customer evidence appears.</p>
