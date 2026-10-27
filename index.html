@@ -135,6 +135,29 @@
       </form>
     </section>
 
+    <section class="validation-workspace bmc-workspace">
+      <div class="workspace-head"><div><p class="stage">BUSINESS MODEL HYPOTHESIS</p><h4>Business Model Canvas</h4></div><span id="bmc-status">Not saved yet</span></div>
+      <p class="workspace-intro">Connect the evidence into one business model. Treat every block as a hypothesis that can change when new customer evidence appears.</p>
+      <form id="bmc-form">
+        <div class="bmc-canvas">
+          <label class="bmc-partners"><strong>Key Partnerships</strong><small>Who helps you deliver the value?</small><textarea name="keyPartners" rows="7" placeholder="Partners, suppliers, alliances..."></textarea></label>
+          <label class="bmc-activities"><strong>Key Activities</strong><small>What must the business do well?</small><textarea name="keyActivities" rows="5" placeholder="Critical activities..."></textarea></label>
+          <label class="bmc-resources"><strong>Key Resources</strong><small>What assets are essential?</small><textarea name="keyResources" rows="5" placeholder="People, technology, data, assets..."></textarea></label>
+          <label class="bmc-value"><strong>Value Propositions</strong><small>Why will customers choose this?</small><textarea name="valuePropositions" rows="12" placeholder="Value created for each customer segment..."></textarea></label>
+          <label class="bmc-relationships"><strong>Customer Relationships</strong><small>How will you acquire, support and retain customers?</small><textarea name="customerRelationships" rows="5" placeholder="Relationship model..."></textarea></label>
+          <label class="bmc-channels"><strong>Channels</strong><small>How will customers discover, buy and receive it?</small><textarea name="channels" rows="5" placeholder="Awareness, sales and delivery channels..."></textarea></label>
+          <label class="bmc-segments"><strong>Customer Segments</strong><small>For whom are you creating value?</small><textarea name="customerSegments" rows="12" placeholder="Primary customers and users..."></textarea></label>
+          <label class="bmc-costs"><strong>Cost Structure</strong><small>What are the most important costs?</small><textarea name="costStructure" rows="5" placeholder="Fixed, variable and major operating costs..."></textarea></label>
+          <label class="bmc-revenue"><strong>Revenue Streams</strong><small>What will customers pay for, and how?</small><textarea name="revenueStreams" rows="5" placeholder="Price, payment and revenue model..."></textarea></label>
+        </div>
+        <div class="form-grid bmc-test">
+          <label>Most Uncertain Assumption<textarea name="riskiestAssumption" rows="3" placeholder="Which assumption could break this business model if it is wrong?"></textarea></label>
+          <label>Next Test<textarea name="nextTest" rows="3" placeholder="What real-world test will reduce this uncertainty?"></textarea></label>
+        </div>
+        <div class="form-actions"><button type="submit" class="save-button">Save BMC</button><button type="button" id="clear-bmc" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
     <section class="validation-workspace survey-workspace">
       <div class="workspace-head"><div><p class="stage">CUSTOMER EVIDENCE</p><h4>Customer Survey Builder</h4></div><span id="survey-status">Not saved yet</span></div>
       <p class="workspace-intro">Design questions that discover customer reality. Avoid selling the idea inside the survey.</p>
