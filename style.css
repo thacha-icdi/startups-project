@@ -115,3 +115,11 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .profile-two-column label small{color:#667085;font-weight:600}
 .profile-two-column input{display:block!important;width:100%!important;margin-top:7px!important}
 @media(max-width:700px){.profile-two-column{grid-template-columns:1fr!important}}
+
+/* Student members: exactly three name/ID rows */
+.student-three-rows{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0 16px}
+.student-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;width:100%}
+.student-pair label{display:block;margin:0!important;font-size:13px;font-weight:800}
+.student-pair label small{color:#667085;font-weight:600}
+.student-pair input{display:block;width:100%;margin-top:7px}
+@media(max-width:700px){.student-pair{grid-template-columns:1fr}}
