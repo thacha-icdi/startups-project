@@ -10,7 +10,7 @@
 <body>
 <header class="topbar">
   <a class="brand" href="#">STARTUPS <span>BUSINESS</span></a>
-  <nav><a href="#projects">Projects</a><a href="#about">About</a></nav>
+  <nav><a href="#dashboard">Dashboard</a><a href="#projects">Projects</a><a href="#about">About</a></nav>
 </header>
 
 <main>
@@ -26,6 +26,29 @@
     <div><strong>02</strong><span>Build and<br>prototype</span></div>
     <div><strong>03</strong><span>Test with<br>customers</span></div>
   </div>
+</section>
+
+<section id="dashboard" class="startup-dashboard">
+  <div class="dashboard-head">
+    <div><p class="eyebrow">MY STARTUP PROJECT</p><h2>Startup Dashboard</h2><p>One startup journey across 888399, 888498 and 888499. Track evidence, decisions and the next action—not a score.</p></div>
+    <span id="profile-status">Profile not saved</span>
+  </div>
+  <form id="profile-form" class="profile-card">
+    <div class="profile-grid">
+      <label>Startup / Project Name<input name="projectName" placeholder="Your startup name"></label>
+      <label>Student / Team<input name="teamName" placeholder="Student name or team name"></label>
+      <label>Student ID / Team ID<input name="studentId" placeholder="ID or team reference"></label>
+      <label>Target Customer<input name="targetCustomer" placeholder="Primary customer segment"></label>
+    </div>
+    <label>Startup Problem / Opportunity<textarea name="startupProblem" rows="3" placeholder="What real customer problem is this startup trying to solve?"></textarea></label>
+    <div class="form-actions"><button type="submit" class="save-button">Save Project Profile</button><button type="button" id="clear-profile" class="secondary-button">Clear</button></div>
+  </form>
+  <div class="journey-board">
+    <article><span>888399</span><h3>Proof of Business Concept</h3><p id="dash-399">No saved evidence yet.</p><strong id="dash-399-decision">Decision: —</strong><button type="button" data-jump="detail-399">Open 888399</button></article>
+    <article><span>888498</span><h3>Prototyping</h3><p id="dash-498">No saved prototype evidence yet.</p><strong id="dash-498-decision">Decision: —</strong><button type="button" data-jump="detail-498">Open 888498</button></article>
+    <article><span>888499</span><h3>Business Test Run</h3><p id="dash-499">No saved market-test evidence yet.</p><strong id="dash-499-decision">Decision: —</strong><button type="button" data-jump="detail-499">Open 888499</button></article>
+  </div>
+  <div class="next-action-card"><span>NEXT ACTION</span><strong id="dashboard-next-action">Save evidence in a project workspace to build your startup journey.</strong></div>
 </section>
 
 <section id="projects" class="projects"><div class="projects-shell">
