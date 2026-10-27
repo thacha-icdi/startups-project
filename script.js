@@ -114,3 +114,7 @@ bindDraftForm('fit-form','startups-business-888399-pain-solution','fit-status','
 bindDraftForm('bmc-form','startups-business-888399-bmc','bmc-status','clear-bmc');
 
 bindDraftForm('digital-tools-form','startups-business-888399-digital-tools','digital-tools-status','clear-digital-tools');
+
+bindDraftForm('prototype-plan-form','startups-business-888498-plan','prototype-plan-status','clear-prototype-plan');
+bindDraftForm('prototype-build-form','startups-business-888498-build','prototype-build-status','clear-prototype-build');
+bindDraftForm('prototype-test-form','startups-business-888498-test','prototype-test-status','clear-prototype-test');
