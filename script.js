@@ -429,3 +429,95 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
     window.location.href='mailto:'+recipients.join(',')+'?subject='+encodeURIComponent(course+' '+taskTitle)+'&body='+encodeURIComponent(lines.join('\n'));
   });
 });
+
+/* Offline BMC suggestion builder: transparent templates, not AI or verified market research. */
+(() => {
+  const form=document.getElementById('bmc-form');
+  const generate=document.getElementById('generate-bmc');
+  const clear=document.getElementById('clear-generated-bmc');
+  const status=document.getElementById('bmc-generate-status');
+  if(!form||!generate||!clear)return;
+  const names=['keyPartners','keyActivities','keyResources','customerRelationships','channels','customerSegments','costStructure','revenueStreams'];
+  let generated={};
+  const clean=s=>s.replace(/\s+/g,' ').trim();
+  generate.addEventListener('click',()=>{
+    const description=clean(form.elements.valuePropositions.value);
+    if(description.length<20){status.textContent='Please describe the product, target users and problem (at least 20 characters).';return;}
+    const short=description.length>115?description.slice(0,112).replace(/\s+\S*$/,'')+'…':description;
+    const drafts={
+      keyPartners:[
+        'Identify suppliers or service partners needed to deliver: '+short,
+        'Explore distribution or referral partners who reach the target users',
+        'Identify technology, payment or logistics providers if required',
+        'Confirm legal, compliance or industry partners where relevant',
+        'Test partnership interest before treating any partner as secured'
+      ],
+      keyActivities:[
+        'Define the minimum deliverable version of the proposed product or service',
+        'Interview intended customers to verify the problem and value',
+        'Build, test and improve the core customer experience',
+        'Plan customer acquisition and onboarding activities',
+        'Measure customer feedback, retention and operational quality'
+      ],
+      keyResources:[
+        'People with skills to build and deliver the proposed offering',
+        'Tools, software, equipment or facilities required for delivery',
+        'Customer insights and evidence validating the stated need',
+        'Time and budget for a small prototype and customer test',
+        'Brand, content, processes and any necessary intellectual property'
+      ],
+      customerRelationships:[
+        'Provide a clear onboarding or first-use experience',
+        'Collect structured feedback after customers try the offering',
+        'Offer support through a channel customers can access',
+        'Follow up to understand repeat use and unresolved problems',
+        'Test trust-building and retention methods with real customers'
+      ],
+      channels:[
+        'Test direct outreach to the intended customer segment',
+        'Create a simple page or demonstration explaining the offering',
+        'Evaluate relevant social media or online discovery channels',
+        'Test referrals or partnerships as acquisition channels',
+        'Measure which channels lead to meaningful customer actions'
+      ],
+      customerSegments:[
+        'Identify people or organizations facing the problem described',
+        'Define primary users who would interact with the offering',
+        'Distinguish users from purchasers or decision makers',
+        'Segment by context, urgency, frequency and ability to pay',
+        'Interview early adopters and refine the segment using evidence'
+      ],
+      costStructure:[
+        'Estimate initial development or setup expenses',
+        'Calculate materials, hosting, service or delivery costs per customer',
+        'Estimate marketing and customer acquisition costs',
+        'Include staff time, support and ongoing operating costs',
+        'Check licensing, transaction and compliance expenses if applicable'
+      ],
+      revenueStreams:[
+        'Identify who would pay for the value described',
+        'Test one-time purchase pricing if appropriate',
+        'Evaluate subscription or recurring fees only if repeat value exists',
+        'Explore service, transaction or usage-based fees where relevant',
+        'Validate willingness to pay with actual commitments or transactions'
+      ]
+    };
+    const populated=names.filter(name=>clean(form.elements[name].value));
+    if(populated.length&&!confirm('Replace the existing content in the other eight BMC sections with new suggestions?'))return;
+    names.forEach(name=>{
+      const content=drafts[name].map(line=>'• '+line).join('\n');
+      form.elements[name].value=content;
+      generated[name]=content;
+    });
+    status.textContent='Generated 5 editable suggestion bullets in each of 8 sections. Review before saving.';
+  });
+  clear.addEventListener('click',()=>{
+    let removed=0;
+    names.forEach(name=>{
+      if(generated[name]&&form.elements[name].value===generated[name]){
+        form.elements[name].value='';removed++;
+      }
+    });
+    status.textContent=removed ? 'Cleared '+removed+' generated sections. Manually edited sections were kept.' : 'No unchanged generated sections to clear.';
+  });
+})();
