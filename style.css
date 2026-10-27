@@ -108,3 +108,10 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .student-row>span{font-weight:900;padding-bottom:13px}.student-row>span small{display:block;color:#667085;font-size:10px;font-weight:600;margin-top:3px}
 .student-row label{margin:0}.student-row input{margin-top:6px}
 @media(max-width:700px){.profile-project-row{grid-template-columns:1fr}.student-row{grid-template-columns:1fr}.student-row>span{padding-bottom:0}}
+
+/* Final student profile: strict two-column order */
+.profile-two-column{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:14px 18px!important;margin-bottom:16px}
+.profile-two-column label{display:block!important;margin:0!important;font-size:13px!important;font-weight:800!important}
+.profile-two-column label small{color:#667085;font-weight:600}
+.profile-two-column input{display:block!important;width:100%!important;margin-top:7px!important}
+@media(max-width:700px){.profile-two-column{grid-template-columns:1fr!important}}
