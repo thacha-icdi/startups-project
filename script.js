@@ -164,3 +164,13 @@ function setupOfficialRequirements(course){
  box.querySelector('.save-requirements').addEventListener('click',()=>{localStorage.setItem(key,JSON.stringify({checked:checks.map(x=>x.checked),notes:notes.value}));status.textContent='Saved on this device';});
 }
 ['399','498','499'].forEach(setupOfficialRequirements);
+
+const printProfileButton = document.getElementById('print-profile');
+if (printProfileButton) {
+  printProfileButton.addEventListener('click', () => {
+    document.body.classList.add('printing-profile');
+    window.print();
+    setTimeout(() => document.body.classList.remove('printing-profile'), 500);
+  });
+}
+window.addEventListener('afterprint', () => document.body.classList.remove('printing-profile'));
