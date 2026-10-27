@@ -34,14 +34,25 @@
     <span id="profile-status">Profile not saved</span>
   </div>
   <form id="profile-form" class="profile-card">
-    <div class="profile-two-column project-info-row">
+    <div class="profile-pair-row">
       <label>Startup / Project Name<input name="projectName" placeholder="Your startup name"></label>
       <label>Target Customer<input name="targetCustomer" placeholder="Primary customer segment"></label>
     </div>
-    <div class="student-three-rows">
-      <div class="student-pair"><label>Student Name 1<input name="studentName1" placeholder="Student name 1" required></label><label>Student ID 1<input name="studentId1" placeholder="Student ID 1" required></label></div>
-      <div class="student-pair"><label>Student Name 2 <small>(Optional)</small><input name="studentName2" placeholder="Student name 2"></label><label>Student ID 2 <small>(Optional)</small><input name="studentId2" placeholder="Student ID 2"></label></div>
-      <div class="student-pair"><label>Student Name 3 <small>(Optional)</small><input name="studentName3" placeholder="Student name 3"></label><label>Student ID 3 <small>(Optional)</small><input name="studentId3" placeholder="Student ID 3"></label></div>
+    <div class="profile-pair-row">
+      <label>Student Name 1<input name="studentName1" placeholder="Student name 1" required></label>
+      <label>Student ID 1<input name="studentId1" placeholder="Student ID 1" required></label>
+    </div>
+    <div class="profile-pair-row">
+      <label>Student Name 2 <small>(Optional)</small><input name="studentName2" placeholder="Student name 2"></label>
+      <label>Student ID 2 <small>(Optional)</small><input name="studentId2" placeholder="Student ID 2"></label>
+    </div>
+    <div class="profile-pair-row">
+      <label>Student Name 3 <small>(Optional)</small><input name="studentName3" placeholder="Student name 3"></label>
+      <label>Student ID 3 <small>(Optional)</small><input name="studentId3" placeholder="Student ID 3"></label>
+    </div>
+    <div class="profile-pair-row advisor-row">
+      <label>Advisor Name<input name="advisorName" placeholder="Advisor name" required></label>
+      <label>Co-advisor Name <small>(Optional)</small><input name="coAdvisorName" placeholder="Co-advisor name"></label>
     </div>
     <label>Startup Problem / Opportunity<textarea name="startupProblem" rows="3" placeholder="What real customer problem is this startup trying to solve?"></textarea></label>
     <div class="form-actions"><button type="submit" class="save-button">Save Project Profile</button><button type="button" id="clear-profile" class="secondary-button">Clear</button></div>
