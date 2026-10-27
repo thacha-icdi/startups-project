@@ -266,66 +266,70 @@ if (emailConceptButton && conceptForm) {
   });
 }
 
-/* Evidence images are stored separately from text drafts in IndexedDB. */
+
+/* Local attachments for each 888399 concept section; old evidence records remain visible. */
 (() => {
-  const input = document.getElementById('concept-evidence-images');
-  const gallery = document.getElementById('concept-image-gallery');
-  const status = document.getElementById('concept-image-status');
-  if (!input || !gallery) return;
-  const dbPromise = new Promise((resolve, reject) => {
-    const request = indexedDB.open('startup-evidence-images', 1);
-    request.onupgradeneeded = () => request.result.createObjectStore('pictures', {keyPath:'id', autoIncrement:true});
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
+  const inputs = document.querySelectorAll('#concept-form input[data-attachment-category]');
+  if (!inputs.length) return;
+  const dbPromise = new Promise((resolve,reject) => {
+    const req = indexedDB.open('startup-evidence-images',1);
+    req.onupgradeneeded = () => req.result.createObjectStore('pictures',{keyPath:'id',autoIncrement:true});
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
   });
-  async function transaction(mode, callback) {
+  async function request(mode, action) {
     const db = await dbPromise;
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction('pictures', mode);
-      const store = tx.objectStore('pictures');
-      const request = callback(store);
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
+    return new Promise((resolve,reject) => {
+      const req = action(db.transaction('pictures',mode).objectStore('pictures'));
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
     });
   }
-  async function render() {
-    const items = await transaction('readonly', store => store.getAll());
-    gallery.replaceChildren();
-    items.forEach(item => {
-      const figure = document.createElement('figure');
-      const img = document.createElement('img');
-      if (item.file.type.startsWith('image/')) {
+  inputs.forEach(input => {
+    const category = input.dataset.attachmentCategory;
+    const gallery = document.getElementById(category === 'evidence' ? 'concept-image-gallery' : 'concept-gallery-'+category);
+    const status = document.getElementById(category === 'evidence' ? 'concept-image-status' : 'concept-status-'+category);
+    async function render() {
+      const all = await request('readonly',store => store.getAll());
+      gallery.replaceChildren();
+      all.filter(item => (item.category || 'evidence') === category).forEach(item => {
+        const figure = document.createElement('figure');
+        if (item.file.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          const url = URL.createObjectURL(item.file);
+          img.src = url; img.alt = item.name; img.onload = () => URL.revokeObjectURL(url);
+          figure.append(img);
+        }
+        const caption = document.createElement('figcaption');
+        caption.append(document.createTextNode(item.name+' '));
+        const download = document.createElement('a');
+        download.textContent = 'Download';
         const url = URL.createObjectURL(item.file);
-        img.src = url; img.alt = item.name; img.onload = () => URL.revokeObjectURL(url);
-      } else {
-        img.alt = 'Document attachment'; img.style.display = 'none';
-      }
-      const download = document.createElement('a');
-      download.textContent = 'Open / Download';
-      download.href = URL.createObjectURL(item.file);
-      download.download = item.name;
-      const caption = document.createElement('figcaption');
-      caption.textContent = item.name + ' ';
-      const remove = document.createElement('button');
-      remove.type = 'button'; remove.textContent = 'Remove';
-      remove.addEventListener('click', async () => {
-        await transaction('readwrite', store => store.delete(item.id));
-        render();
+        download.href = url; download.download = item.name;
+        download.addEventListener('click', () => setTimeout(() => URL.revokeObjectURL(url),60000),{once:true});
+        const remove = document.createElement('button');
+        remove.type='button'; remove.textContent='Remove';
+        remove.addEventListener('click',async () => {
+          await request('readwrite',store => store.delete(item.id));
+          await render();
+        });
+        caption.append(download,document.createTextNode(' '),remove);
+        figure.append(caption); gallery.append(figure);
       });
-      caption.append(download, document.createTextNode(' '), remove); figure.append(img, caption); gallery.append(figure);
+    }
+    input.addEventListener('change',async () => {
+      try {
+        let skipped=0;
+        for (const file of input.files) {
+          if (!file.type.startsWith('image/') && !/\.(doc|docx|pdf|ppt|pptx|html|htm)$/i.test(file.name)) {skipped++;continue;}
+          if (file.size > 8*1024*1024) {skipped++;continue;}
+          await request('readwrite',store => store.add({category,name:file.name,file,created:Date.now()}));
+        }
+        input.value='';
+        await render();
+        status.textContent = skipped ? skipped+' file(s) skipped (unsupported or over 8 MB).' : 'Files saved in this browser.';
+      } catch(e) {status.textContent='Could not save files. Check browser storage.';}
     });
-  }
-  input.addEventListener('change', async () => {
-    try {
-      for (const file of input.files) {
-        if (!(/\.(doc|docx|pdf|ppt|pptx|html|htm)$/i.test(file.name) || file.type.startsWith('image/'))) continue;
-        if (file.size > 8 * 1024 * 1024) { status.textContent = file.name + ' exceeds 8 MB; skipped.'; continue; }
-        await transaction('readwrite', store => store.add({name:file.name,file,created:Date.now()}));
-      }
-      input.value = '';
-      await render();
-      if (!status.textContent.includes('skipped')) status.textContent = 'Files saved in this browser.';
-    } catch (error) { status.textContent = 'Could not save files. Check browser storage permissions.'; }
+    render().catch(() => {status.textContent='File storage unavailable.';});
   });
-  render().catch(() => { status.textContent = 'File storage is unavailable in this browser.'; });
 })();
