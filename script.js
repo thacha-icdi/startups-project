@@ -108,3 +108,5 @@ if(surveyForm){
     localStorage.removeItem(surveyKey);surveyForm.reset();surveyQuestions=[];addSurveyQuestion();document.getElementById('survey-status').textContent='Draft cleared';
   });
 }
+bindDraftForm('validation-form','startups-business-888399-validation','validation-status','clear-validation');
+bindDraftForm('fit-form','startups-business-888399-pain-solution','fit-status','clear-fit');
