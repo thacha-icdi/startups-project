@@ -247,3 +247,7 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .hero-course-codes strong{display:block;font-size:clamp(76px,9vw,150px);font-weight:800;color:#fff}
 .hero-course-codes strong:nth-child(2){color:#ffb000}
 @media(max-width:700px){.hero-course-codes{justify-self:start;text-align:left;align-items:flex-start;margin-top:20px;letter-spacing:-3px}.hero-course-codes strong{font-size:clamp(62px,20vw,100px)}}
+
+.hero-icdi-link{justify-self:end;align-self:center;text-align:right;font-size:clamp(42px,5vw,78px);line-height:1.02;font-weight:800;letter-spacing:-2px;color:#ffb000;text-decoration:none}
+.hero-icdi-link:hover{text-decoration:underline}
+@media(max-width:700px){.hero-icdi-link{justify-self:start;text-align:left;font-size:42px;margin-top:24px}}
