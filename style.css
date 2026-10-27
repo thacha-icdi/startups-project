@@ -2,3 +2,23 @@
 .validation-workspace{margin-top:34px;background:#fff;color:#101828;padding:28px;border-left:5px solid #ffb000}.workspace-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}.workspace-head h4{margin:4px 0 0;font-size:28px}.workspace-head #save-status{font-size:12px;color:#667085;background:#f2f4f7;padding:8px 10px;border-radius:3px}.workspace-intro{color:#667085;line-height:1.6;margin:12px 0 25px}.validation-workspace label{display:block;font-size:13px;font-weight:800;margin:16px 0}.validation-workspace input,.validation-workspace textarea{display:block;width:100%;margin-top:8px;border:1px solid #d0d5dd;background:#fff;padding:13px 14px;font:inherit;color:#101828;border-radius:3px;outline:none}.validation-workspace input:focus,.validation-workspace textarea:focus{border-color:#ffb000;box-shadow:0 0 0 3px rgba(255,176,0,.15)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.form-actions{display:flex;gap:10px;margin-top:20px}.save-button,.secondary-button{border:0;padding:13px 18px;font-weight:800;cursor:pointer}.save-button{background:#ffb000;color:#101828}.secondary-button{background:#e4e7ec;color:#344054}@media(max-width:850px){.form-grid{grid-template-columns:1fr}.workspace-head{flex-direction:column}}
 .research-workspace,.survey-workspace{margin-top:18px}.survey-questions{display:grid;gap:10px;margin:18px 0}.survey-question{display:grid;grid-template-columns:42px 1fr 150px 42px;gap:8px;align-items:center}.survey-question .q-number{font-weight:900;color:#ff9d00;text-align:center}.survey-question input,.survey-question select{margin:0;width:100%;border:1px solid #d0d5dd;padding:12px;font:inherit;background:#fff}.remove-question{height:42px;border:0;background:#f2f4f7;cursor:pointer;font-size:18px}.survey-results{margin-top:18px}@media(max-width:700px){.survey-question{grid-template-columns:36px 1fr 40px}.survey-question select{grid-column:2/3}}
 .market-validation-workspace,.fit-workspace{margin-top:18px}.validation-table{display:grid;gap:8px;margin:20px 0}.validation-row{display:grid;grid-template-columns:1.05fr 1.5fr 190px;gap:10px;align-items:start;padding:14px;background:#f8fafc;border:1px solid #eaecf0}.validation-row strong{font-size:14px;line-height:1.45;padding:8px 4px}.validation-row textarea,.validation-row select,.validation-workspace select{width:100%;border:1px solid #d0d5dd;background:#fff;padding:11px;font:inherit;color:#101828}.validation-header{background:#101828;color:#fff;font-size:12px;font-weight:800;letter-spacing:.5px}.validation-header span{padding:4px}@media(max-width:850px){.validation-row{grid-template-columns:1fr}.validation-header{display:none}}
+/* v0.5 — Desktop readability and application layout */
+@media (min-width:1100px){
+  .topbar{height:82px;padding:0 max(48px,7vw)}
+  .brand{font-size:18px}.topbar nav a{font-size:15px}
+  .hero{min-height:680px;padding:90px max(70px,8vw);grid-template-columns:minmax(0,1.15fr) minmax(420px,.85fr);gap:8vw}
+  .hero-copy{max-width:900px}.hero h1{font-size:clamp(68px,6vw,104px);line-height:.94}
+  .lead{font-size:20px;max-width:760px}.primary{font-size:16px;padding:17px 24px}
+  .hero-panel{width:100%;max-width:620px;justify-self:end}.hero-panel div{padding:32px}.hero-panel strong{font-size:42px}.hero-panel span{font-size:19px}
+  .projects{max-width:1480px;padding:110px 64px}.section-heading{max-width:900px;margin-bottom:60px}
+  .section-heading h2{font-size:60px}.section-heading>p:last-child{font-size:19px;max-width:760px}
+  .project-card{grid-template-columns:190px minmax(0,1fr) 170px;gap:42px;padding:44px 42px;margin-top:28px}
+  .project-number{font-size:32px}.project-content h3{font-size:36px}.project-content>p{font-size:17px;max-width:850px}
+  .tags{gap:9px}.tags span{font-size:13px;padding:8px 11px}.open-project{font-size:14px;padding:15px 18px}
+  .project-detail{padding:46px}.project-detail>h4{font-size:32px}.tool-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .tool-grid>div{padding:24px;min-height:175px}.tool-grid strong{font-size:19px}.tool-grid p{font-size:15px}
+  .validation-workspace{padding:38px}.workspace-head h4{font-size:34px}.workspace-intro{font-size:16px;max-width:900px}
+  .validation-workspace label{font-size:14px}.validation-workspace input,.validation-workspace textarea,.validation-workspace select{font-size:16px}
+  .about{padding:110px max(70px,8vw)}.about h2{font-size:64px}.about>p:last-child{font-size:19px;max-width:850px}
+  footer{padding:34px max(48px,7vw);font-size:14px}
+}
