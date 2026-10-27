@@ -219,6 +219,49 @@
       <div><b>03</b><strong>Business Prototype</strong><p>Test key business assumptions before full implementation.</p></div>
       <div><b>04</b><strong>Mock-up</strong><p>Visualize screens, service touchpoints, packaging or experience.</p></div>
     </div>
+    <section class="validation-workspace prototype-workspace">
+      <div class="workspace-head"><div><p class="stage">BUILD TO LEARN</p><h4>Prototype Planning</h4></div><span id="prototype-plan-status">Not saved yet</span></div>
+      <p class="workspace-intro">Start from the strongest evidence from 888399. Define the assumption to test before deciding what to build.</p>
+      <form id="prototype-plan-form">
+        <div class="form-grid"><label>Validated Problem / Opportunity<textarea name="validatedProblem" rows="3" placeholder="What evidence from 888399 justifies prototyping?"></textarea></label><label>Target User<input name="targetUser" placeholder="Who will interact with this prototype?"></label></div>
+        <label>Critical Assumption to Test<textarea name="criticalAssumption" rows="3" placeholder="What must you learn before investing further?"></textarea></label>
+        <div class="form-grid"><label>Prototype Type<select name="prototypeType"><option>Product / Service</option><option>Process</option><option>Business Model</option><option>Mock-up / Interface</option><option>Combined Prototype</option></select></label><label>Success Evidence<input name="successEvidence" placeholder="What observable evidence would support the assumption?"></label></div>
+        <label>Minimum Prototype Scope<textarea name="minimumScope" rows="3" placeholder="What is the smallest version that can produce useful learning?"></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Prototype Plan</button><button type="button" id="clear-prototype-plan" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
+    <section class="validation-workspace prototype-build-workspace">
+      <div class="workspace-head"><div><p class="stage">MAKE IT TESTABLE</p><h4>Prototype Build Record</h4></div><span id="prototype-build-status">Not saved yet</span></div>
+      <p class="workspace-intro">Document what you built across the product/service, operating process and business model. A prototype only needs enough fidelity to answer the test question.</p>
+      <form id="prototype-build-form">
+        <div class="prototype-build-grid">
+          <label><strong>Product / Service Prototype</strong><small>What will the customer see, use or experience?</small><textarea name="productPrototype" rows="5" placeholder="Core feature, service interaction, physical concept..."></textarea></label>
+          <label><strong>Process Prototype</strong><small>How will delivery or operation work?</small><textarea name="processPrototype" rows="5" placeholder="Steps, roles, handoffs, fulfilment..."></textarea></label>
+          <label><strong>Business Prototype</strong><small>What business mechanism will you test?</small><textarea name="businessPrototype" rows="5" placeholder="Pricing, channel, transaction, revenue or partnership test..."></textarea></label>
+        </div>
+        <label>Mock-up / Prototype Link or Reference<input name="prototypeReference" placeholder="URL, file name, Figma page, demo reference, physical prototype location..."></label>
+        <label>What Is Intentionally NOT Built Yet?<textarea name="notBuilt" rows="3" placeholder="Keep scope small. List features or operations excluded from this test."></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Build Record</button><button type="button" id="clear-prototype-build" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
+    <section class="validation-workspace prototype-test-workspace">
+      <div class="workspace-head"><div><p class="stage">TEST → OBSERVE → REVISE</p><h4>Prototype Testing</h4></div><span id="prototype-test-status">Not saved yet</span></div>
+      <p class="workspace-intro">Put the prototype in front of relevant users. Record behavior and evidence before interpreting what it means.</p>
+      <form id="prototype-test-form">
+        <div class="form-grid"><label>Test Participants<input name="participants" placeholder="Who tested it and how many?"></label><label>Test Context<input name="testContext" placeholder="Where and under what situation was it tested?"></label></div>
+        <label>Task / Scenario<textarea name="testTask" rows="3" placeholder="What did you ask the participant to do?"></textarea></label>
+        <div class="form-grid"><label>What Users Did<textarea name="observedBehavior" rows="5" placeholder="Observed actions, confusion, workarounds, completion..."></textarea></label><label>What Users Said<textarea name="userFeedback" rows="5" placeholder="Feedback, objections, questions, useful quotes..."></textarea></label></div>
+        <label>Evidence Collected<textarea name="testEvidence" rows="4" placeholder="Photos, notes, task outcomes, time, clicks, sign-ups, willingness to continue, etc."></textarea></label>
+        <div class="prototype-decision-grid">
+          <label>Decision<select name="prototypeDecision"><option>Revise and Test Again</option><option>Ready for Business Test Run</option><option>Change the Prototype Direction</option><option>Return to 888399 Validation</option></select></label>
+          <label>What Must Change?<textarea name="changes" rows="3" placeholder="Specific changes based on evidence, not preference."></textarea></label>
+          <label>Evidence to Carry into 888499<textarea name="testRunHandoff" rows="3" placeholder="What is now ready to test in a real business setting?"></textarea></label>
+        </div>
+        <div class="form-actions"><button type="submit" class="save-button">Save Prototype Test</button><button type="button" id="clear-prototype-test" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
   </div>
 
   <article class="project-card" data-project="499">
