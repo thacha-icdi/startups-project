@@ -78,6 +78,46 @@
         </div>
       </form>
     </section>
+
+    <section class="validation-workspace research-workspace">
+      <div class="workspace-head"><div><p class="stage">MARKET EVIDENCE</p><h4>Market Research</h4></div><span id="research-status">Not saved yet</span></div>
+      <p class="workspace-intro">Record evidence about the market before deciding that an opportunity exists. Separate facts and sources from assumptions.</p>
+      <form id="research-form">
+        <div class="form-grid">
+          <label>Customer Segment<input name="segment" placeholder="Specific group you want to understand"></label>
+          <label>Geographic Market<input name="geography" placeholder="City, country, region, online market, etc."></label>
+        </div>
+        <label>Market Need / Behavior<textarea name="need" rows="3" placeholder="What evidence shows this customer group has the need or behavior?"></textarea></label>
+        <div class="form-grid">
+          <label>Market Size / Demand Evidence<textarea name="marketSize" rows="4" placeholder="Numbers, search demand, transactions, reports, observations..."></textarea></label>
+          <label>Market Trend<textarea name="trend" rows="4" placeholder="Growing, stable, declining? What evidence supports this?"></textarea></label>
+        </div>
+        <label>Competitors / Existing Alternatives<textarea name="competitors" rows="4" placeholder="Who already serves this customer? What does the customer use instead?"></textarea></label>
+        <label>Sources / Links / Notes<textarea name="sources" rows="3" placeholder="Record where the evidence came from so it can be checked later."></textarea></label>
+        <label>Market Research Conclusion<textarea name="conclusion" rows="3" placeholder="What does the evidence suggest about the opportunity?"></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Market Research</button><button type="button" id="clear-research" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
+    <section class="validation-workspace survey-workspace">
+      <div class="workspace-head"><div><p class="stage">CUSTOMER EVIDENCE</p><h4>Customer Survey Builder</h4></div><span id="survey-status">Not saved yet</span></div>
+      <p class="workspace-intro">Design questions that discover customer reality. Avoid selling the idea inside the survey.</p>
+      <form id="survey-form">
+        <div class="form-grid">
+          <label>Survey Objective<input name="objective" placeholder="What do you need to learn?"></label>
+          <label>Target Respondents<input name="respondents" placeholder="Who should answer this survey?"></label>
+        </div>
+        <div id="survey-questions" class="survey-questions"></div>
+        <button type="button" id="add-question" class="secondary-button">+ Add Question</button>
+        <div class="form-grid survey-results">
+          <label>Responses Collected<input name="responseCount" type="number" min="0" placeholder="0"></label>
+          <label>Most Important Finding<input name="topFinding" placeholder="What stood out from the responses?"></label>
+        </div>
+        <label>Survey Evidence / Summary<textarea name="summary" rows="4" placeholder="Summarize patterns, quotes, counts, objections or unexpected findings."></textarea></label>
+        <label>Decision from Survey<textarea name="decision" rows="3" placeholder="Continue, revise the problem, change the solution, interview more customers, etc."></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Survey</button><button type="button" id="clear-survey" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
   </div>
 
   <article class="project-card" data-project="498">
