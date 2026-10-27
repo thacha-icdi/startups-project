@@ -403,3 +403,29 @@ if (emailConceptButton && conceptForm) {
     render().catch(() => {status.textContent='File storage unavailable.';});
   });
 })();
+
+/* Share any task's current fields with group members and advisors. */
+document.querySelectorAll('form .email-task-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const form = button.closest('form');
+    const data = new FormData(form);
+    const recipients = [...new Set(
+      [data.get('groupEmails') || '',data.get('advisorEmail') || '',data.get('coAdvisorEmail') || '']
+        .join(',').split(/[;,\s]+/).map(s => s.trim()).filter(Boolean)
+    )];
+    if (!recipients.length || recipients.some(s => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s))) {
+      alert('Please enter valid group member and/or advisor email addresses.');
+      return;
+    }
+    const taskTitle = form.closest('.validation-workspace')?.querySelector('.workspace-head h4')?.textContent?.trim() || form.id.replace(/-form$/,'').replace(/-/g,' ');
+    const course = form.closest('#detail-399') ? '888399' : form.closest('#detail-498') ? '888498' : form.closest('#detail-499') ? '888499' : 'Startup';
+    const lines = [course+' — '+taskTitle,''];
+    form.querySelectorAll('input[name]:not([type=file]),textarea[name],select[name]').forEach(field => {
+      if (['groupEmails','advisorEmail','coAdvisorEmail'].includes(field.name)) return;
+      const label = field.closest('label')?.textContent?.trim() || field.name;
+      lines.push(label+': '+(field.value || '-'),'');
+    });
+    lines.push('Supporting files must be attached manually in your email app.');
+    window.location.href='mailto:'+recipients.join(',')+'?subject='+encodeURIComponent(course+' '+taskTitle)+'&body='+encodeURIComponent(lines.join('\n'));
+  });
+});
