@@ -47,3 +47,16 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
   #projects .project-content>p{font-size:17px!important}
   #projects .project-detail{width:100%!important;max-width:none!important}
 }
+
+/* 888399 Business Model Canvas */
+.bmc-canvas{display:grid;grid-template-columns:1fr 1fr 1.15fr 1fr 1fr;grid-template-rows:auto auto auto;gap:8px;margin:24px 0}
+.bmc-canvas label{margin:0!important;padding:18px;background:#f8fafc;border:1px solid #d0d5dd;min-width:0}
+.bmc-canvas label strong{display:block;font-size:16px;margin-bottom:5px}
+.bmc-canvas label small{display:block;min-height:34px;color:#667085;font-weight:400;line-height:1.35}
+.bmc-canvas textarea{min-height:120px;resize:vertical}
+.bmc-partners{grid-column:1;grid-row:1/3}.bmc-activities{grid-column:2;grid-row:1}.bmc-resources{grid-column:2;grid-row:2}
+.bmc-value{grid-column:3;grid-row:1/3}.bmc-relationships{grid-column:4;grid-row:1}.bmc-channels{grid-column:4;grid-row:2}
+.bmc-segments{grid-column:5;grid-row:1/3}.bmc-costs{grid-column:1/3;grid-row:3}.bmc-revenue{grid-column:3/6;grid-row:3}
+.bmc-test{margin-top:18px}
+@media(max-width:1100px){.bmc-canvas{grid-template-columns:1fr 1fr}.bmc-canvas label{grid-column:auto!important;grid-row:auto!important}}
+@media(max-width:650px){.bmc-canvas{grid-template-columns:1fr}}
