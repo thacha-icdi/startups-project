@@ -118,3 +118,8 @@ bindDraftForm('digital-tools-form','startups-business-888399-digital-tools','dig
 bindDraftForm('prototype-plan-form','startups-business-888498-plan','prototype-plan-status','clear-prototype-plan');
 bindDraftForm('prototype-build-form','startups-business-888498-build','prototype-build-status','clear-prototype-build');
 bindDraftForm('prototype-test-form','startups-business-888498-test','prototype-test-status','clear-prototype-test');
+
+bindDraftForm('test-run-plan-form','startups-business-888499-plan','test-run-plan-status','clear-test-run-plan');
+bindDraftForm('customer-test-form','startups-business-888499-customer-test','customer-test-status','clear-customer-test');
+bindDraftForm('business-results-form','startups-business-888499-results','business-results-status','clear-business-results');
+bindDraftForm('future-plan-form','startups-business-888499-future-plan','future-plan-status','clear-future-plan');
