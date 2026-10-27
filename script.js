@@ -333,3 +333,73 @@ if (emailConceptButton && conceptForm) {
     render().catch(() => {status.textContent='File storage unavailable.';});
   });
 })();
+
+/* Supporting documents attached to individual workspace text areas. */
+(() => {
+  const blocks = document.querySelectorAll('.field-attachments');
+  if (!blocks.length) return;
+  const dbReady = new Promise((resolve,reject) => {
+    const req = indexedDB.open('startup-workspace-attachments',1);
+    req.onupgradeneeded = () => req.result.createObjectStore('files',{keyPath:'id',autoIncrement:true});
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+  async function operation(mode, action) {
+    const db = await dbReady;
+    return new Promise((resolve,reject) => {
+      const req = action(db.transaction('files',mode).objectStore('files'));
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+  blocks.forEach(block => {
+    const formId = block.dataset.attachmentForm;
+    const field = block.dataset.attachmentField;
+    const input = block.querySelector('input[type=file]');
+    const gallery = block.querySelector('.attachment-gallery');
+    const status = block.querySelector('.attachment-status');
+    const key = formId + ':' + field;
+    async function render() {
+      const files = (await operation('readonly',store => store.getAll())).filter(item => item.key === key);
+      gallery.replaceChildren();
+      files.forEach(item => {
+        const figure = document.createElement('figure');
+        if (item.file.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          const url = URL.createObjectURL(item.file);
+          img.src=url; img.alt=item.name;
+          img.onload=() => URL.revokeObjectURL(url);
+          figure.append(img);
+        }
+        const caption=document.createElement('figcaption');
+        caption.append(document.createTextNode(item.name+' '));
+        const link=document.createElement('a');
+        link.textContent='Download';
+        const url=URL.createObjectURL(item.file);
+        link.href=url; link.download=item.name;
+        link.addEventListener('click',() => setTimeout(() => URL.revokeObjectURL(url),60000),{once:true});
+        const remove=document.createElement('button');
+        remove.type='button'; remove.textContent='Remove';
+        remove.addEventListener('click',async () => {
+          await operation('readwrite',store => store.delete(item.id));
+          await render();
+        });
+        caption.append(link,document.createTextNode(' '),remove);
+        figure.append(caption);gallery.append(figure);
+      });
+    }
+    input.addEventListener('change',async () => {
+      try {
+        let skipped=0;
+        for(const file of input.files) {
+          if ((!file.type.startsWith('image/') && !/\.(doc|docx|pdf|ppt|pptx|html|htm)$/i.test(file.name)) || file.size>8*1024*1024) {skipped++;continue;}
+          await operation('readwrite',store => store.add({key,name:file.name,file}));
+        }
+        input.value='';
+        await render();
+        status.textContent=skipped ? skipped+' unsupported or oversized file(s) skipped (8 MB limit).' : 'Files saved in this browser.';
+      } catch(e) {status.textContent='Could not save files. Check browser storage.';}
+    });
+    render().catch(() => {status.textContent='File storage unavailable.';});
+  });
+})();
