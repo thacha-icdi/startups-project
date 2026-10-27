@@ -123,3 +123,34 @@ bindDraftForm('test-run-plan-form','startups-business-888499-plan','test-run-pla
 bindDraftForm('customer-test-form','startups-business-888499-customer-test','customer-test-status','clear-customer-test');
 bindDraftForm('business-results-form','startups-business-888499-results','business-results-status','clear-business-results');
 bindDraftForm('future-plan-form','startups-business-888499-future-plan','future-plan-status','clear-future-plan');
+
+const profileKey='startups-business-project-profile';
+bindDraftForm('profile-form',profileKey,'profile-status','clear-profile');
+
+function readDraft(key){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch(e){return {}}}
+function shortText(value,fallback){if(!value)return fallback;return value.length>150?value.slice(0,147)+'...':value}
+function updateDashboard(){
+  const v399=readDraft('startups-business-888399-validation');
+  const fit=readDraft('startups-business-888399-pain-solution');
+  const ptest=readDraft('startups-business-888498-test');
+  const btest=readDraft('startups-business-888499-customer-test');
+  const results=readDraft('startups-business-888499-results');
+  const future=readDraft('startups-business-888499-future-plan');
+  document.getElementById('dash-399').textContent=shortText(fit.painEvidence||v399.decisionReason,'No saved evidence yet.');
+  document.getElementById('dash-399-decision').textContent='Decision: '+(v399.overallDecision||'—');
+  document.getElementById('dash-498').textContent=shortText(ptest.testEvidence||ptest.observedBehavior,'No saved prototype evidence yet.');
+  document.getElementById('dash-498-decision').textContent='Decision: '+(ptest.prototypeDecision||'—');
+  document.getElementById('dash-499').textContent=shortText(btest.commitmentEvidence||results.keyLearning,'No saved market-test evidence yet.');
+  document.getElementById('dash-499-decision').textContent='Decision: '+(future.finalDecision||'—');
+  document.getElementById('dashboard-next-action').textContent=future.next30Days||results.improvement||ptest.changes||v399.nextExperiment||'Save evidence in a project workspace to build your startup journey.';
+}
+document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('click',()=>{
+  const id=btn.dataset.jump, detail=document.getElementById(id);
+  document.querySelectorAll('.project-detail').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.open-project').forEach(x=>x.textContent='Open Project →');
+  detail.classList.add('active');
+  const opener=document.querySelector('[data-target="'+id+'"]');if(opener)opener.textContent='Close Project ↑';
+  detail.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+document.querySelectorAll('.validation-workspace form').forEach(form=>form.addEventListener('submit',()=>setTimeout(updateDashboard,0)));
+updateDashboard();
