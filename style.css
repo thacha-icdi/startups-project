@@ -294,3 +294,5 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 @media(max-width:700px){.hero-icdi-callout{justify-self:stretch;width:100%}.hero-click-here{font-size:38px;margin-bottom:16px}}
 
 .hero h1 .hero-third-course{color:#22c55e}
+
+.concept-images{margin:18px 0}.concept-images>label{display:block;font-weight:800;margin-bottom:8px}.concept-images>input{display:block;max-width:100%}.concept-image-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-top:14px}.concept-image-gallery figure{margin:0;border:1px solid #d0d5dd;padding:8px;background:#fff}.concept-image-gallery img{display:block;width:100%;height:125px;object-fit:contain}.concept-image-gallery figcaption{font-size:12px;overflow-wrap:anywhere}.concept-image-gallery button{margin-left:6px;cursor:pointer}
