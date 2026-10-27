@@ -92,3 +92,11 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .journey-board{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.journey-board article{padding:25px;background:#101828;color:#fff;min-height:250px;display:flex;flex-direction:column}.journey-board article>span{color:#ffb000;font-weight:900}.journey-board h3{font-size:22px;margin:12px 0}.journey-board p{color:#cbd5e1;line-height:1.55;flex:1}.journey-board strong{font-size:13px;margin:14px 0}.journey-board button{align-self:flex-start;border:0;background:#ffb000;color:#101828;font-weight:800;padding:10px 13px;cursor:pointer}
 .next-action-card{margin-top:12px;padding:20px 24px;background:#ffb000;display:flex;gap:24px;align-items:center}.next-action-card span{font-size:11px;letter-spacing:2px;font-weight:900}.next-action-card strong{font-size:16px}
 @media(max-width:900px){.dashboard-head{flex-direction:column}.profile-grid,.journey-board{grid-template-columns:1fr}.next-action-card{align-items:flex-start;flex-direction:column;gap:8px}}
+
+/* ICDI official presentation requirements */
+.official-requirements{background:#fff;color:#101828;padding:28px;margin:0 0 20px;border-top:5px solid #ffb000}
+.requirement-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.requirement-head h4{font-size:27px;margin:4px 0}.requirement-head>span{background:#101828;color:#fff;padding:9px 12px;font-size:12px;font-weight:800}
+.official-requirements>p{color:#667085;line-height:1.55}.official-requirements h5{font-size:17px;margin:25px 0 10px}
+.requirement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:18px 0}.requirement-grid label{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid #e4e7ec;padding:13px;font-size:13px;font-weight:700}.requirement-grid input{width:auto!important;margin:2px 0!important;accent-color:#ffb000}
+.requirement-evidence{display:block;font-size:13px;font-weight:800;margin:18px 0}.requirement-evidence textarea{display:block;width:100%;margin-top:8px;padding:12px;border:1px solid #d0d5dd;font:inherit}.req-status{margin-left:12px;color:#667085;font-size:12px}
+@media(max-width:700px){.requirement-head{flex-direction:column}.requirement-grid{grid-template-columns:1fr}}
