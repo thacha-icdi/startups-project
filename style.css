@@ -84,3 +84,11 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .business-result-grid strong{display:block;font-size:17px;margin-bottom:8px}
 .future-plan-workspace{border-left-color:#101828}
 @media(max-width:900px){.business-result-grid{grid-template-columns:1fr}}
+
+/* Startup Dashboard */
+.startup-dashboard{padding:90px 6vw;background:#fff;border-bottom:1px solid #e4e7ec}
+.dashboard-head{display:flex;justify-content:space-between;gap:30px;align-items:flex-start;margin-bottom:28px}.dashboard-head>div{max-width:900px}.dashboard-head h2{font-size:clamp(42px,4vw,68px);line-height:1;margin:8px 0 15px;letter-spacing:-2px}.dashboard-head>div>p:last-child{color:#667085;font-size:17px;line-height:1.6}.dashboard-head>span{font-size:12px;color:#667085;background:#f2f4f7;padding:9px 11px}
+.profile-card{background:#f8fafc;border-left:5px solid #ffb000;padding:26px;margin-bottom:22px}.profile-card label{display:block;font-size:13px;font-weight:800}.profile-card input,.profile-card textarea{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid #d0d5dd;font:inherit}.profile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.journey-board{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.journey-board article{padding:25px;background:#101828;color:#fff;min-height:250px;display:flex;flex-direction:column}.journey-board article>span{color:#ffb000;font-weight:900}.journey-board h3{font-size:22px;margin:12px 0}.journey-board p{color:#cbd5e1;line-height:1.55;flex:1}.journey-board strong{font-size:13px;margin:14px 0}.journey-board button{align-self:flex-start;border:0;background:#ffb000;color:#101828;font-weight:800;padding:10px 13px;cursor:pointer}
+.next-action-card{margin-top:12px;padding:20px 24px;background:#ffb000;display:flex;gap:24px;align-items:center}.next-action-card span{font-size:11px;letter-spacing:2px;font-weight:900}.next-action-card strong{font-size:16px}
+@media(max-width:900px){.dashboard-head{flex-direction:column}.profile-grid,.journey-board{grid-template-columns:1fr}.next-action-card{align-items:flex-start;flex-direction:column;gap:8px}}
