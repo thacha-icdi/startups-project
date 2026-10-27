@@ -77,3 +77,10 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .prototype-decision-grid{display:grid;grid-template-columns:.8fr 1.1fr 1.1fr;gap:12px;margin-top:18px}
 .prototype-decision-grid label{margin:0!important;padding:18px;background:#f8fafc;border:1px solid #d0d5dd}
 @media(max-width:1000px){.prototype-build-grid,.prototype-decision-grid{grid-template-columns:1fr}}
+
+/* 888499 Business Test Run */
+.business-result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}
+.business-result-grid label{margin:0!important;padding:20px;background:#f8fafc;border:1px solid #d0d5dd}
+.business-result-grid strong{display:block;font-size:17px;margin-bottom:8px}
+.future-plan-workspace{border-left-color:#101828}
+@media(max-width:900px){.business-result-grid{grid-template-columns:1fr}}
