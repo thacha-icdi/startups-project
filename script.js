@@ -237,3 +237,31 @@ if (emailProfileButton) {
       encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   });
 }
+
+const emailConceptButton = document.getElementById('email-concept');
+if (emailConceptButton && conceptForm) {
+  emailConceptButton.addEventListener('click', () => {
+    const data = Object.fromEntries(new FormData(conceptForm).entries());
+    const candidates = [data.groupEmails || '', data.advisorEmail || '', data.coAdvisorEmail || '']
+      .join(',').split(/[;,\s]+/).map(email => email.trim()).filter(Boolean);
+    const recipients = [...new Set(candidates)];
+    if (!recipients.length || recipients.some(email => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
+      alert('Enter valid email addresses for group members and/or advisors before emailing.');
+      return;
+    }
+    localStorage.setItem(conceptKey, JSON.stringify(data));
+    saveStatus.textContent = 'Saved on this device';
+    const fields = [
+      ['Startup / Project Name', data.startupName],
+      ['Target Customer', data.targetCustomer],
+      ['Customer Pain Point', data.painPoint],
+      ['Current Alternatives', data.alternatives],
+      ['Proposed Solution', data.solution],
+      ['Validation Evidence', data.evidence],
+      ['Key Learning / Decision', data.learning]
+    ];
+    const body = ['888399 — Business Concept Validation', '', ...fields.map(([label, value]) => label + ':\n' + (value || '-') + '\n')].join('\n');
+    const subject = '888399 Business Concept Validation - ' + (data.startupName || 'Startup Project');
+    window.location.href = 'mailto:' + recipients.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+}
