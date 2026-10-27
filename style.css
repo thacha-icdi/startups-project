@@ -100,3 +100,11 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .requirement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:18px 0}.requirement-grid label{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid #e4e7ec;padding:13px;font-size:13px;font-weight:700}.requirement-grid input{width:auto!important;margin:2px 0!important;accent-color:#ffb000}
 .requirement-evidence{display:block;font-size:13px;font-weight:800;margin:18px 0}.requirement-evidence textarea{display:block;width:100%;margin-top:8px;padding:12px;border:1px solid #d0d5dd;font:inherit}.req-status{margin-left:12px;color:#667085;font-size:12px}
 @media(max-width:700px){.requirement-head{flex-direction:column}.requirement-grid{grid-template-columns:1fr}}
+
+/* Student profile ordering */
+.profile-project-row{grid-template-columns:1fr 1fr;margin-bottom:16px}
+.student-members{display:grid;gap:8px;margin-bottom:16px}
+.student-row{display:grid;grid-template-columns:130px 1fr 1fr;gap:12px;align-items:end;padding:12px 14px;background:#fff;border:1px solid #e4e7ec}
+.student-row>span{font-weight:900;padding-bottom:13px}.student-row>span small{display:block;color:#667085;font-size:10px;font-weight:600;margin-top:3px}
+.student-row label{margin:0}.student-row input{margin-top:6px}
+@media(max-width:700px){.profile-project-row{grid-template-columns:1fr}.student-row{grid-template-columns:1fr}.student-row>span{padding-bottom:0}}
