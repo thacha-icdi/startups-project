@@ -229,3 +229,6 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
   }
   body.printing-profile #profile-form .form-actions{display:none!important}
 }
+
+.email-profile-button{margin-left:6px}
+@media(max-width:700px){#profile-form .form-actions{display:flex;flex-wrap:wrap;gap:8px}.print-profile-button,.email-profile-button{margin-left:0}}
