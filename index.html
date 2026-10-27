@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Startups Business Project</title>
   <meta name="description" content="A practical startup learning platform from business concept validation to prototype and market test run.">
-  <link rel="stylesheet" href="style.css?v=20261027-5">
+  <link rel="stylesheet" href="style.css?v=20261027-6">
 </head>
 <body>
 <header class="topbar">
@@ -34,6 +34,14 @@
     <span id="profile-status">Profile not saved</span>
   </div>
   <form id="profile-form" class="profile-card">
+    <div class="profile-course-switcher" aria-label="Select course project">
+      <button type="button" class="profile-course active" data-profile-course="888399"><strong>888399</strong><span>Proof of Business Concept</span></button>
+      <span class="course-arrow">→</span>
+      <button type="button" class="profile-course" data-profile-course="888498"><strong>888498</strong><span>Prototyping</span></button>
+      <span class="course-arrow">→</span>
+      <button type="button" class="profile-course" data-profile-course="888499"><strong>888499</strong><span>Business Test Run</span></button>
+    </div>
+    <div class="profile-course-note">Editing profile for <strong id="profile-course-label">888399</strong>. Each course keeps a separate group and startup topic.</div>
     <div class="profile-pair-row">
       <label>Startup / Project Name<input name="projectName" placeholder="Your startup name"></label>
       <label>Target Customer<input name="targetCustomer" placeholder="Primary customer segment"></label>
@@ -416,6 +424,6 @@
 </main>
 
 <footer><strong>Startups Business Project</strong><span>Proof → Prototype → Test Run</span></footer>
-<script src="script.js?v=20261027-5"></script>
+<script src="script.js?v=20261027-6"></script>
 </body>
 </html>
