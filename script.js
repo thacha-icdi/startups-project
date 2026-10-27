@@ -233,7 +233,7 @@ if (emailProfileButton) {
       data.get('startupProblem') || '-'
     ].join('\n');
     const subject = activeProfileCourse + ' Startup Project Profile - ' + projectName;
-    window.location.href = 'mailto:thacha.l@icdi.cmu.ac.th,somsak.c@icdi.cmu.ac.th?subject=' +
+    window.location.href = 'mailto:thacha.l@icdi.cmu.ac.th,somsak.c@icdi.cmu.ac.th,aniwat.ph@cmu.ac.th,Kanyanatthakarn.in@cmu.ac.th,sureeporn.t@cmu.ac.th,tanyaluck.k@cmu.ac.th?subject=' +
       encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   });
 }
