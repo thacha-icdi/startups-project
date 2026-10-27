@@ -232,3 +232,13 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 
 .email-profile-button{margin-left:6px}
 @media(max-width:700px){#profile-form .form-actions{display:flex;flex-wrap:wrap;gap:8px}.print-profile-button,.email-profile-button{margin-left:0}}
+
+/* Course-specific project profiles */
+.profile-course-switcher{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:10px;margin:0 0 12px}
+.profile-course{appearance:none;border:1px solid #d0d5dd;background:#fff;color:#101828;padding:13px 14px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px}
+.profile-course strong{font-size:17px}.profile-course span{font-size:11px;color:#667085;font-weight:700}
+.profile-course.active{border:2px solid #ffb000;background:#fff8e6;padding:12px 13px}
+.course-arrow{align-self:center;font-size:20px;font-weight:900;color:#98a2b3}
+.profile-course-note{font-size:12px;color:#475467;background:#eef2f6;padding:9px 12px;margin:0 0 20px}
+@media(max-width:700px){.profile-course-switcher{grid-template-columns:1fr}.course-arrow{display:none}.profile-course{text-align:center;align-items:center}}
+@media print{body.printing-profile .profile-course-switcher,body.printing-profile .profile-course-note{display:none!important}}
