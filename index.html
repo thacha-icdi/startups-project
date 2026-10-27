@@ -99,6 +99,42 @@
       </form>
     </section>
 
+    <section class="validation-workspace market-validation-workspace">
+      <div class="workspace-head"><div><p class="stage">EVIDENCE → DECISION</p><h4>Market Validation</h4></div><span id="validation-status">Not saved yet</span></div>
+      <p class="workspace-intro">Test the most important assumptions with evidence. Do not award points; record what the market actually supports.</p>
+      <form id="validation-form">
+        <div class="validation-table">
+          <div class="validation-row validation-header"><span>Validation Question</span><span>Evidence</span><span>Decision</span></div>
+          <div class="validation-row"><strong>Does the target customer really experience this problem?</strong><textarea name="problemEvidence" rows="3" placeholder="Interview quotes, observations, survey findings..."></textarea><select name="problemDecision"><option>Need More Evidence</option><option>Supported</option><option>Not Supported</option></select></div>
+          <div class="validation-row"><strong>Is the problem important or frequent enough to act on?</strong><textarea name="importanceEvidence" rows="3" placeholder="Frequency, cost, time lost, urgency, consequences..."></textarea><select name="importanceDecision"><option>Need More Evidence</option><option>Supported</option><option>Not Supported</option></select></div>
+          <div class="validation-row"><strong>Are customers already using alternatives or workarounds?</strong><textarea name="alternativeEvidence" rows="3" placeholder="Competitors, manual work, spreadsheets, existing services..."></textarea><select name="alternativeDecision"><option>Need More Evidence</option><option>Supported</option><option>Not Supported</option></select></div>
+          <div class="validation-row"><strong>Does the proposed solution address the verified pain point?</strong><textarea name="solutionEvidence" rows="3" placeholder="Customer reactions, tests, sign-ups, demo requests..."></textarea><select name="solutionDecision"><option>Need More Evidence</option><option>Supported</option><option>Not Supported</option></select></div>
+          <div class="validation-row"><strong>Will customers make a meaningful commitment?</strong><textarea name="commitmentEvidence" rows="3" placeholder="Waitlist, meeting, trial, pilot, pre-order, willingness to pay..."></textarea><select name="commitmentDecision"><option>Need More Evidence</option><option>Supported</option><option>Not Supported</option></select></div>
+        </div>
+        <label>Overall Validation Decision<select name="overallDecision"><option>Continue Testing</option><option>Proceed to Prototype</option><option>Revise / Pivot</option><option>Stop This Concept</option></select></label>
+        <label>Reason for Decision<textarea name="decisionReason" rows="4" placeholder="Explain the decision using the strongest evidence and the biggest remaining uncertainty."></textarea></label>
+        <label>Next Experiment<textarea name="nextExperiment" rows="3" placeholder="What is the next smallest test that can reduce uncertainty?"></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Validation</button><button type="button" id="clear-validation" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
+    <section class="validation-workspace fit-workspace">
+      <div class="workspace-head"><div><p class="stage">PROBLEM ↔ SOLUTION</p><h4>Pain Point → Solution Fit</h4></div><span id="fit-status">Not saved yet</span></div>
+      <p class="workspace-intro">Make the connection explicit: one verified pain point, its evidence, the proposed response, and what still needs to be tested.</p>
+      <form id="fit-form">
+        <label>Verified Pain Point<textarea name="verifiedPain" rows="3" placeholder="State the customer pain in one clear sentence."></textarea></label>
+        <label>Evidence That the Pain Is Real<textarea name="painEvidence" rows="3" placeholder="What did customers actually say or do?"></textarea></label>
+        <label>Root Cause<textarea name="rootCause" rows="3" placeholder="Why does this pain happen? Avoid describing only symptoms."></textarea></label>
+        <label>Proposed Solution<textarea name="proposedSolution" rows="3" placeholder="Describe the simplest solution to this verified pain."></textarea></label>
+        <div class="form-grid">
+          <label>Expected Customer Benefit<textarea name="benefit" rows="3" placeholder="Save time, reduce cost, reduce risk, improve outcome..."></textarea></label>
+          <label>Why Better Than Current Alternative?<textarea name="difference" rows="3" placeholder="What meaningful difference would make customers switch?"></textarea></label>
+        </div>
+        <label>Critical Assumption Still Untested<textarea name="untestedAssumption" rows="3" placeholder="What must be true before you should invest in prototyping?"></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Pain–Solution Fit</button><button type="button" id="clear-fit" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
     <section class="validation-workspace survey-workspace">
       <div class="workspace-head"><div><p class="stage">CUSTOMER EVIDENCE</p><h4>Customer Survey Builder</h4></div><span id="survey-status">Not saved yet</span></div>
       <p class="workspace-intro">Design questions that discover customer reality. Avoid selling the idea inside the survey.</p>
