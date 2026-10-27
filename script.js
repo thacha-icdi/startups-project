@@ -124,8 +124,40 @@ bindDraftForm('customer-test-form','startups-business-888499-customer-test','cus
 bindDraftForm('business-results-form','startups-business-888499-results','business-results-status','clear-business-results');
 bindDraftForm('future-plan-form','startups-business-888499-future-plan','future-plan-status','clear-future-plan');
 
-const profileKey='startups-business-project-profile';
-bindDraftForm('profile-form',profileKey,'profile-status','clear-profile');
+const profileForm=document.getElementById('profile-form');
+const profileStatus=document.getElementById('profile-status');
+const profileCourseLabel=document.getElementById('profile-course-label');
+let activeProfileCourse='888399';
+const profileKeyFor=course=>'startups-business-project-profile-'+course;
+
+function loadCourseProfile(course){
+  activeProfileCourse=course;
+  profileCourseLabel.textContent=course;
+  document.querySelectorAll('.profile-course').forEach(btn=>btn.classList.toggle('active',btn.dataset.profileCourse===course));
+  let saved={};
+  try{saved=JSON.parse(localStorage.getItem(profileKeyFor(course))||'{}')}catch(e){}
+  Array.from(profileForm.elements).forEach(el=>{
+    if(!el.name)return;
+    if(el.type==='checkbox')el.checked=Boolean(saved[el.name]);
+    else el.value=saved[el.name]||'';
+  });
+  profileStatus.textContent=Object.keys(saved).length ? course+' profile loaded' : course+' profile not saved';
+}
+document.querySelectorAll('.profile-course').forEach(btn=>btn.addEventListener('click',()=>loadCourseProfile(btn.dataset.profileCourse)));
+profileForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  const data={};
+  new FormData(profileForm).forEach((value,key)=>data[key]=value);
+  localStorage.setItem(profileKeyFor(activeProfileCourse),JSON.stringify(data));
+  profileStatus.textContent=activeProfileCourse+' profile saved';
+  updateDashboard();
+});
+document.getElementById('clear-profile').addEventListener('click',()=>{
+  localStorage.removeItem(profileKeyFor(activeProfileCourse));
+  profileForm.reset();
+  profileStatus.textContent=activeProfileCourse+' profile cleared';
+});
+loadCourseProfile('888399');
 
 function readDraft(key){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch(e){return {}}}
 function shortText(value,fallback){if(!value)return fallback;return value.length>150?value.slice(0,147)+'...':value}
@@ -182,7 +214,7 @@ if (emailProfileButton) {
     const data = new FormData(form);
     const projectName = data.get('projectName') || 'Startup Project';
     const body = [
-      'STARTUP PROJECT PROFILE',
+      activeProfileCourse + ' STARTUP PROJECT PROFILE',
       '',
       'Startup / Project Name: ' + (data.get('projectName') || '-'),
       'Target Customer: ' + (data.get('targetCustomer') || '-'),
@@ -200,7 +232,7 @@ if (emailProfileButton) {
       'Startup Problem / Opportunity:',
       data.get('startupProblem') || '-'
     ].join('\n');
-    const subject = 'Startup Project Profile - ' + projectName;
+    const subject = activeProfileCourse + ' Startup Project Profile - ' + projectName;
     window.location.href = 'mailto:thacha.l@icdi.cmu.ac.th,somsak.c@icdi.cmu.ac.th?subject=' +
       encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   });
