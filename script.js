@@ -174,3 +174,34 @@ if (printProfileButton) {
   });
 }
 window.addEventListener('afterprint', () => document.body.classList.remove('printing-profile'));
+
+const emailProfileButton = document.getElementById('email-profile');
+if (emailProfileButton) {
+  emailProfileButton.addEventListener('click', () => {
+    const form = document.getElementById('profile-form');
+    const data = new FormData(form);
+    const projectName = data.get('projectName') || 'Startup Project';
+    const body = [
+      'STARTUP PROJECT PROFILE',
+      '',
+      'Startup / Project Name: ' + (data.get('projectName') || '-'),
+      'Target Customer: ' + (data.get('targetCustomer') || '-'),
+      '',
+      'Student Name 1: ' + (data.get('studentName1') || '-'),
+      'Student ID 1: ' + (data.get('studentId1') || '-'),
+      'Student Name 2: ' + (data.get('studentName2') || '-'),
+      'Student ID 2: ' + (data.get('studentId2') || '-'),
+      'Student Name 3: ' + (data.get('studentName3') || '-'),
+      'Student ID 3: ' + (data.get('studentId3') || '-'),
+      '',
+      'Advisor Name: ' + (data.get('advisorName') || '-'),
+      'Co-advisor Name: ' + (data.get('coAdvisorName') || '-'),
+      '',
+      'Startup Problem / Opportunity:',
+      data.get('startupProblem') || '-'
+    ].join('\n');
+    const subject = 'Startup Project Profile - ' + projectName;
+    window.location.href = 'mailto:thacha.l@icdi.cmu.ac.th,somsak.c@icdi.cmu.ac.th?subject=' +
+      encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+}
