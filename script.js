@@ -294,8 +294,16 @@ if (emailConceptButton && conceptForm) {
     items.forEach(item => {
       const figure = document.createElement('figure');
       const img = document.createElement('img');
-      const url = URL.createObjectURL(item.file);
-      img.src = url; img.alt = item.name; img.onload = () => URL.revokeObjectURL(url);
+      if (item.file.type.startsWith('image/')) {
+        const url = URL.createObjectURL(item.file);
+        img.src = url; img.alt = item.name; img.onload = () => URL.revokeObjectURL(url);
+      } else {
+        img.alt = 'Document attachment'; img.style.display = 'none';
+      }
+      const download = document.createElement('a');
+      download.textContent = 'Open / Download';
+      download.href = URL.createObjectURL(item.file);
+      download.download = item.name;
       const caption = document.createElement('figcaption');
       caption.textContent = item.name + ' ';
       const remove = document.createElement('button');
@@ -304,20 +312,20 @@ if (emailConceptButton && conceptForm) {
         await transaction('readwrite', store => store.delete(item.id));
         render();
       });
-      caption.append(remove); figure.append(img, caption); gallery.append(figure);
+      caption.append(download, document.createTextNode(' '), remove); figure.append(img, caption); gallery.append(figure);
     });
   }
   input.addEventListener('change', async () => {
     try {
       for (const file of input.files) {
-        if (!file.type.startsWith('image/')) continue;
+        if (!(/\.(doc|docx|pdf|ppt|pptx|html|htm)$/i.test(file.name) || file.type.startsWith('image/'))) continue;
         if (file.size > 8 * 1024 * 1024) { status.textContent = file.name + ' exceeds 8 MB; skipped.'; continue; }
         await transaction('readwrite', store => store.add({name:file.name,file,created:Date.now()}));
       }
       input.value = '';
       await render();
-      if (!status.textContent.includes('skipped')) status.textContent = 'Pictures saved in this browser.';
-    } catch (error) { status.textContent = 'Could not save pictures. Check browser storage permissions.'; }
+      if (!status.textContent.includes('skipped')) status.textContent = 'Files saved in this browser.';
+    } catch (error) { status.textContent = 'Could not save files. Check browser storage permissions.'; }
   });
-  render().catch(() => { status.textContent = 'Picture storage is unavailable in this browser.'; });
+  render().catch(() => { status.textContent = 'File storage is unavailable in this browser.'; });
 })();
