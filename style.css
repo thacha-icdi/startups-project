@@ -123,3 +123,10 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .student-pair label small{color:#667085;font-weight:600}
 .student-pair input{display:block;width:100%;margin-top:7px}
 @media(max-width:700px){.student-pair{grid-template-columns:1fr}}
+
+/* Definitive profile row layout */
+#profile-form .profile-pair-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important;width:100%!important;margin:0 0 14px!important}
+#profile-form .profile-pair-row>label{display:block!important;width:auto!important;margin:0!important;min-width:0!important}
+#profile-form .profile-pair-row input{display:block!important;width:100%!important;margin:7px 0 0!important}
+#profile-form .profile-pair-row small{color:#667085;font-weight:600}
+@media(max-width:600px){#profile-form .profile-pair-row{grid-template-columns:1fr!important}}
