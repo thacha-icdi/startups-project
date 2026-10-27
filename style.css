@@ -60,3 +60,12 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .bmc-test{margin-top:18px}
 @media(max-width:1100px){.bmc-canvas{grid-template-columns:1fr 1fr}.bmc-canvas label{grid-column:auto!important;grid-row:auto!important}}
 @media(max-width:650px){.bmc-canvas{grid-template-columns:1fr}}
+
+/* 888399 Digital Tools Decision Workspace */
+.digital-tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0}
+.digital-tool-card{background:#f8fafc;border:1px solid #d0d5dd;padding:20px}
+.digital-tool-card>strong{font-size:18px}.digital-tool-card>p{min-height:44px;color:#667085;font-size:13px;line-height:1.5;margin:7px 0 14px}
+.digital-tool-card label{font-size:12px;margin:11px 0!important}.digital-tool-card input,.digital-tool-card textarea{margin-top:6px!important}
+.digital-decision{margin-top:18px}
+@media(max-width:1100px){.digital-tools-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.digital-tools-grid{grid-template-columns:1fr}}
