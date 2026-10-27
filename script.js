@@ -442,7 +442,7 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
   const clean=s=>s.replace(/\s+/g,' ').trim();
   generate.addEventListener('click',()=>{
     const description=clean(form.elements.valuePropositions.value);
-    if(description.length<20){status.textContent='Please describe the product, target users and problem (at least 20 characters).';return;}
+    if(!description){status.textContent='Please enter a product or service description first.';status.style.color='#b42318';return;} status.style.color='#067647';
     const short=description.length>115?description.slice(0,112).replace(/\s+\S*$/,'')+'…':description;
     const drafts={
       keyPartners:[
@@ -509,7 +509,7 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
       form.elements[name].value=content;
       generated[name]=content;
     });
-    status.textContent='Generated 5 editable suggestion bullets in each of 8 sections. Review before saving.';
+    status.textContent='Generated 5 bullets in all 8 sections. Review and click Save BMC.';
   });
   clear.addEventListener('click',()=>{
     let removed=0;
