@@ -283,6 +283,57 @@
       <div><b>03</b><strong>Results & Learning</strong><p>Document evidence, observations and business lessons.</p></div>
       <div><b>04</b><strong>Future Plan</strong><p>Decide what to improve, continue, pivot or test next.</p></div>
     </div>
+    <section class="validation-workspace test-run-plan-workspace">
+      <div class="workspace-head"><div><p class="stage">REAL MARKET EXPERIMENT</p><h4>Business Test Run Plan</h4></div><span id="test-run-plan-status">Not saved yet</span></div>
+      <p class="workspace-intro">Move beyond prototype feedback. Define a controlled real-market experiment in which customers can make meaningful choices such as using, ordering, paying, returning or recommending.</p>
+      <form id="test-run-plan-form">
+        <div class="form-grid"><label>Business Offer<input name="businessOffer" placeholder="What exactly will customers receive?"></label><label>Target Customer<input name="testCustomer" placeholder="Who will be invited into the test run?"></label></div>
+        <label>Business Assumption to Test<textarea name="businessAssumption" rows="3" placeholder="What business assumption must this test run examine?"></textarea></label>
+        <div class="form-grid"><label>Test Channel<input name="testChannel" placeholder="Online, store, event, social media, direct sales..."></label><label>Test Period<input name="testPeriod" placeholder="When and for how long will the test run operate?"></label></div>
+        <label>Meaningful Customer Action<textarea name="customerAction" rows="3" placeholder="What real action matters: purchase, booking, trial, repeat use, referral, deposit, etc.?"></textarea></label>
+        <label>Evidence to Collect<textarea name="evidencePlan" rows="4" placeholder="Transactions, usage, objections, enquiries, repeat behavior, operational issues, customer feedback..."></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Test Plan</button><button type="button" id="clear-test-run-plan" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
+    <section class="validation-workspace customer-test-workspace">
+      <div class="workspace-head"><div><p class="stage">CUSTOMER BEHAVIOR</p><h4>Customer Test & Feedback</h4></div><span id="customer-test-status">Not saved yet</span></div>
+      <p class="workspace-intro">Record what customers actually did separately from what they said. Both matter, but behavior is especially important when testing a business.</p>
+      <form id="customer-test-form">
+        <div class="form-grid"><label>Customers Reached<input name="customersReached" placeholder="Describe the customers involved"></label><label>Customer Actions Observed<input name="actionsObserved" placeholder="Purchases, trials, enquiries, returns, repeat use..."></label></div>
+        <div class="form-grid"><label>What Customers Did<textarea name="customerBehavior" rows="5" placeholder="Observed behavior and decisions"></textarea></label><label>What Customers Said<textarea name="customerFeedback" rows="5" placeholder="Feedback, objections, expectations, useful quotes"></textarea></label></div>
+        <label>Purchase / Usage / Commitment Evidence<textarea name="commitmentEvidence" rows="4" placeholder="Record meaningful commitment evidence without turning it into an arbitrary score."></textarea></label>
+        <label>Operational Problems Observed<textarea name="operationalProblems" rows="3" placeholder="Delivery, process, cost, quality, capacity, communication or other issues"></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Customer Test</button><button type="button" id="clear-customer-test" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
+    <section class="validation-workspace business-results-workspace">
+      <div class="workspace-head"><div><p class="stage">EVIDENCE → LEARNING</p><h4>Business Results & Improvement</h4></div><span id="business-results-status">Not saved yet</span></div>
+      <p class="workspace-intro">Interpret the test run using evidence. Identify what the market supported, what remains uncertain and what must change before the next run.</p>
+      <form id="business-results-form">
+        <div class="business-result-grid">
+          <label><strong>Supported by Evidence</strong><textarea name="supported" rows="5" placeholder="What assumptions or business elements received meaningful support?"></textarea></label>
+          <label><strong>Need More Evidence</strong><textarea name="uncertain" rows="5" placeholder="What remains uncertain or was not tested well enough?"></textarea></label>
+          <label><strong>Not Supported</strong><textarea name="notSupported" rows="5" placeholder="What assumptions contradicted customer or operational evidence?"></textarea></label>
+        </div>
+        <label>Most Important Learning<textarea name="keyLearning" rows="3" placeholder="What changed your understanding of the business most?"></textarea></label>
+        <label>Improvement for the Next Run<textarea name="improvement" rows="4" placeholder="What will you change in the offer, customer, channel, price, process or prototype—and why?"></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Results</button><button type="button" id="clear-business-results" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
+
+    <section class="validation-workspace future-plan-workspace">
+      <div class="workspace-head"><div><p class="stage">DECIDE WHAT HAPPENS NEXT</p><h4>Startup Decision & Future Plan</h4></div><span id="future-plan-status">Not saved yet</span></div>
+      <p class="workspace-intro">Finish the project with a decision grounded in the full evidence journey from 888399, 888498 and the real-market test run.</p>
+      <form id="future-plan-form">
+        <label>Final Decision<select name="finalDecision"><option>Continue and Run the Next Experiment</option><option>Improve and Test Again</option><option>Pivot the Business Model</option><option>Return to Customer / Market Validation</option><option>Prepare for Launch / Expansion</option><option>Stop This Concept</option></select></label>
+        <label>Evidence Behind the Decision<textarea name="decisionEvidence" rows="5" placeholder="Which customer, market, prototype and business-test evidence supports this decision?"></textarea></label>
+        <div class="form-grid"><label>Next 30-Day Action<textarea name="next30Days" rows="4" placeholder="What should the team do next?"></textarea></label><label>Biggest Remaining Risk<textarea name="remainingRisk" rows="4" placeholder="What could still invalidate or damage the business?"></textarea></label></div>
+        <label>Future Plan<textarea name="futurePlan" rows="5" placeholder="Describe the next stage: further validation, another test run, launch preparation, partnership, funding, scaling or stopping."></textarea></label>
+        <div class="form-actions"><button type="submit" class="save-button">Save Future Plan</button><button type="button" id="clear-future-plan" class="secondary-button">Clear</button></div>
+      </form>
+    </section>
   </div>
 </div></section>
 
