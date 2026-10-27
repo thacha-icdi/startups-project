@@ -37,3 +37,13 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
  .survey-question{grid-template-columns:36px 1fr 40px}.survey-question select{grid-column:2/3}
  footer{gap:10px;flex-direction:column}
 }
+/* v0.8 definitive desktop home layout */
+@media (min-width:1000px){
+  #projects.projects{padding:80px 0 100px!important;width:100%!important;max-width:none!important}
+  #projects .projects-shell{width:88vw!important;max-width:1700px!important;margin:0 auto!important}
+  #projects .section-heading{width:100%!important;max-width:1100px!important;margin:0 0 44px!important}
+  #projects .project-card{width:100%!important;max-width:none!important;margin:18px 0 0!important;grid-template-columns:200px minmax(0,1fr) 200px!important;padding:42px 48px!important}
+  #projects .project-content h3{font-size:36px!important}
+  #projects .project-content>p{font-size:17px!important}
+  #projects .project-detail{width:100%!important;max-width:none!important}
+}
