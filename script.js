@@ -521,3 +521,58 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
     status.textContent=removed ? 'Cleared '+removed+' generated sections. Manually edited sections were kept.' : 'No unchanged generated sections to clear.';
   });
 })();
+
+/* Per-criterion evidence uploads for official presentation requirements. */
+(() => {
+  const sections = ['399','498','499'];
+  const dbReady = new Promise((resolve,reject)=>{
+    const req=indexedDB.open('startup-requirement-files',1);
+    req.onupgradeneeded=()=>req.result.createObjectStore('files',{keyPath:'id',autoIncrement:true});
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+  });
+  async function action(mode,fn){
+    const db=await dbReady;
+    return new Promise((resolve,reject)=>{
+      const req=fn(db.transaction('files',mode).objectStore('files'));
+      req.onsuccess=()=>resolve(req.result);
+      req.onerror=()=>reject(req.error);
+    });
+  }
+  sections.forEach(course=>{
+    const section=document.querySelector('#detail-'+course+' .official-requirements');
+    if(!section)return;
+    section.querySelectorAll('.requirement-item').forEach(item=>{
+      const input=item.querySelector('.requirement-file-input');
+      const output=item.querySelector('.requirement-files');
+      const criterion=Number(input.dataset.criterion);
+      async function render(){
+        const records=(await action('readonly',store=>store.getAll())).filter(x=>x.course===course&&x.criterion===criterion);
+        output.replaceChildren();
+        records.forEach(record=>{
+          const row=document.createElement('div');
+          const link=document.createElement('a');
+          const url=URL.createObjectURL(record.file);
+          link.href=url;link.download=record.name;link.textContent=record.name;
+          link.addEventListener('click',()=>setTimeout(()=>URL.revokeObjectURL(url),60000),{once:true});
+          const remove=document.createElement('button');
+          remove.type='button';remove.textContent='Remove';
+          remove.addEventListener('click',async()=>{await action('readwrite',store=>store.delete(record.id));await render();});
+          row.append(link,document.createTextNode(' '),remove);output.append(row);
+        });
+      }
+      input.addEventListener('change',async()=>{
+        try{
+          let skipped=0;
+          for(const file of input.files){
+            if((!file.type.startsWith('image/')&&!/\.(doc|docx|pdf|ppt|pptx|html|htm)$/i.test(file.name))||file.size>8*1024*1024){skipped++;continue;}
+            await action('readwrite',store=>store.add({course,criterion,name:file.name,file}));
+          }
+          input.value='';await render();
+          if(skipped)alert(skipped+' file(s) skipped: unsupported type or over 8 MB.');
+        }catch(e){alert('Could not save evidence files in this browser.');}
+      });
+      render().catch(()=>{output.textContent='File storage unavailable.';});
+    });
+  });
+})();
