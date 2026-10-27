@@ -251,3 +251,39 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .hero-icdi-link{justify-self:end;align-self:center;text-align:right;font-size:clamp(42px,5vw,78px);line-height:1.02;font-weight:800;letter-spacing:-2px;color:#ffb000;text-decoration:none}
 .hero-icdi-link:hover{text-decoration:underline}
 @media(max-width:700px){.hero-icdi-link{justify-self:start;text-align:left;font-size:42px;margin-top:24px}}
+
+/* Prominent ICDI Project Startup callout */
+.hero a.hero-icdi-link,
+.hero a.hero-icdi-link:visited{
+  justify-self:end;
+  align-self:center;
+  display:inline-block;
+  min-width:360px;
+  padding:34px 38px;
+  background:#ffb000;
+  border:3px solid #ffb000;
+  color:#0b1220 !important;
+  text-align:left;
+  text-decoration:none !important;
+  font-size:clamp(38px,4.2vw,68px) !important;
+  line-height:1.02;
+  font-weight:900;
+  letter-spacing:-2px;
+  box-shadow:10px 10px 0 #ffffff;
+}
+.hero a.hero-icdi-link:hover{
+  background:#ffffff;
+  border-color:#ffffff;
+  color:#0b1220 !important;
+  transform:translate(-3px,-3px);
+}
+@media(max-width:700px){
+  .hero a.hero-icdi-link,.hero a.hero-icdi-link:visited{
+    justify-self:stretch;
+    min-width:0;
+    width:100%;
+    margin-top:28px;
+    padding:26px;
+    font-size:clamp(34px,11vw,52px) !important;
+  }
+}
