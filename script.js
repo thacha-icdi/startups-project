@@ -265,3 +265,59 @@ if (emailConceptButton && conceptForm) {
     window.location.href = 'mailto:' + recipients.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   });
 }
+
+/* Evidence images are stored separately from text drafts in IndexedDB. */
+(() => {
+  const input = document.getElementById('concept-evidence-images');
+  const gallery = document.getElementById('concept-image-gallery');
+  const status = document.getElementById('concept-image-status');
+  if (!input || !gallery) return;
+  const dbPromise = new Promise((resolve, reject) => {
+    const request = indexedDB.open('startup-evidence-images', 1);
+    request.onupgradeneeded = () => request.result.createObjectStore('pictures', {keyPath:'id', autoIncrement:true});
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+  async function transaction(mode, callback) {
+    const db = await dbPromise;
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction('pictures', mode);
+      const store = tx.objectStore('pictures');
+      const request = callback(store);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+  async function render() {
+    const items = await transaction('readonly', store => store.getAll());
+    gallery.replaceChildren();
+    items.forEach(item => {
+      const figure = document.createElement('figure');
+      const img = document.createElement('img');
+      const url = URL.createObjectURL(item.file);
+      img.src = url; img.alt = item.name; img.onload = () => URL.revokeObjectURL(url);
+      const caption = document.createElement('figcaption');
+      caption.textContent = item.name + ' ';
+      const remove = document.createElement('button');
+      remove.type = 'button'; remove.textContent = 'Remove';
+      remove.addEventListener('click', async () => {
+        await transaction('readwrite', store => store.delete(item.id));
+        render();
+      });
+      caption.append(remove); figure.append(img, caption); gallery.append(figure);
+    });
+  }
+  input.addEventListener('change', async () => {
+    try {
+      for (const file of input.files) {
+        if (!file.type.startsWith('image/')) continue;
+        if (file.size > 8 * 1024 * 1024) { status.textContent = file.name + ' exceeds 8 MB; skipped.'; continue; }
+        await transaction('readwrite', store => store.add({name:file.name,file,created:Date.now()}));
+      }
+      input.value = '';
+      await render();
+      if (!status.textContent.includes('skipped')) status.textContent = 'Pictures saved in this browser.';
+    } catch (error) { status.textContent = 'Could not save pictures. Check browser storage permissions.'; }
+  });
+  render().catch(() => { status.textContent = 'Picture storage is unavailable in this browser.'; });
+})();
