@@ -154,3 +154,13 @@ document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('clic
 }));
 document.querySelectorAll('.validation-workspace form').forEach(form=>form.addEventListener('submit',()=>setTimeout(updateDashboard,0)));
 updateDashboard();
+
+function setupOfficialRequirements(course){
+ const box=document.querySelector('#detail-'+course+' .official-requirements'); if(!box)return;
+ const key='startups-business-'+course+'-official-requirements';
+ const checks=[...box.querySelectorAll('input[type="checkbox"]')], notes=box.querySelector('textarea'), status=document.getElementById('req'+course+'-status');
+ const saved=readDraft(key);
+ if(Array.isArray(saved.checked)){checks.forEach((x,i)=>x.checked=!!saved.checked[i]);notes.value=saved.notes||'';status.textContent='Checklist loaded';}
+ box.querySelector('.save-requirements').addEventListener('click',()=>{localStorage.setItem(key,JSON.stringify({checked:checks.map(x=>x.checked),notes:notes.value}));status.textContent='Saved on this device';});
+}
+['399','498','499'].forEach(setupOfficialRequirements);
