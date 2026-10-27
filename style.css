@@ -130,3 +130,59 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 #profile-form .profile-pair-row input{display:block!important;width:100%!important;margin:7px 0 0!important}
 #profile-form .profile-pair-row small{color:#667085;font-weight:600}
 @media(max-width:600px){#profile-form .profile-pair-row{grid-template-columns:1fr!important}}
+
+/* Project Profile — compact professional layout */
+#profile-form.profile-card{
+  max-width:980px!important;
+  margin:0 auto 28px!important;
+  padding:28px 30px!important;
+  box-sizing:border-box!important;
+}
+#profile-form .profile-pair-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  column-gap:22px!important;
+  row-gap:0!important;
+  margin:0 0 15px!important;
+  width:100%!important;
+}
+#profile-form .profile-pair-row>label{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+}
+#profile-form label{
+  font-size:12px!important;
+  line-height:1.35!important;
+  font-weight:800!important;
+}
+#profile-form input,
+#profile-form textarea{
+  box-sizing:border-box!important;
+  width:100%!important;
+  margin-top:6px!important;
+  padding:10px 12px!important;
+  min-height:40px!important;
+  background:#fff!important;
+}
+#profile-form textarea{
+  min-height:88px!important;
+  resize:vertical!important;
+}
+#profile-form .advisor-row{
+  padding-top:15px!important;
+  margin-top:4px!important;
+  border-top:1px solid #e4e7ec!important;
+}
+#profile-form>label{
+  display:block!important;
+  margin:18px 0 0!important;
+}
+#profile-form .form-actions{
+  margin-top:18px!important;
+}
+@media(max-width:700px){
+  #profile-form.profile-card{padding:22px 18px!important}
+  #profile-form .profile-pair-row{grid-template-columns:1fr!important;row-gap:14px!important}
+}
