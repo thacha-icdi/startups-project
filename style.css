@@ -186,3 +186,46 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
   #profile-form.profile-card{padding:22px 18px!important}
   #profile-form .profile-pair-row{grid-template-columns:1fr!important;row-gap:14px!important}
 }
+
+.print-profile-button{margin-left:6px}
+@media print{
+  @page{size:A4;margin:14mm}
+  body.printing-profile *{visibility:hidden!important}
+  body.printing-profile #dashboard,
+  body.printing-profile #dashboard *{visibility:visible!important}
+  body.printing-profile #dashboard{
+    position:absolute!important;
+    left:0!important;top:0!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;padding:0!important;
+    background:#fff!important;
+  }
+  body.printing-profile #dashboard .dashboard-head,
+  body.printing-profile #dashboard .journey-board,
+  body.printing-profile #dashboard .next-action-card{display:none!important}
+  body.printing-profile #profile-form{
+    max-width:none!important;
+    margin:0!important;
+    padding:18px!important;
+    border:1px solid #d0d5dd!important;
+    border-left:4px solid #101828!important;
+    background:#fff!important;
+    box-shadow:none!important;
+  }
+  body.printing-profile #profile-form:before{
+    content:"STARTUP PROJECT PROFILE";
+    display:block!important;
+    visibility:visible!important;
+    font-size:22px!important;
+    font-weight:900!important;
+    margin-bottom:18px!important;
+  }
+  body.printing-profile #profile-form input,
+  body.printing-profile #profile-form textarea{
+    border:1px solid #98a2b3!important;
+    background:#fff!important;
+    color:#101828!important;
+  }
+  body.printing-profile #profile-form .form-actions{display:none!important}
+}
