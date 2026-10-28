@@ -676,3 +676,21 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
   }));
   render();
 })();
+
+/* Update the official enrollment roster link for a new semester, locally. */
+(() => {
+ const toggle=document.getElementById('roster-semester-toggle'),panel=document.getElementById('roster-semester-settings');
+ const link=document.querySelector('.student-list-399-link a');
+ if(!toggle||!panel||!link)return;
+ const fields={year:document.getElementById('roster-academic-year'),semester:document.getElementById('roster-semester'),sec:document.getElementById('roster-section'),lab:document.getElementById('roster-lab')};
+ const status=document.getElementById('roster-semester-status');
+ const key='startups-business-888399-roster-semester-settings';
+ function apply(v){const url=new URL(link.href);url.searchParams.set('year',v.year);url.searchParams.set('semester',v.semester);url.searchParams.set('sec',v.sec);url.searchParams.set('lab',v.lab);link.href=url.toString();}
+ try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved&&saved.year&&saved.semester){Object.keys(fields).forEach(k=>{if(saved[k]!==undefined)fields[k].value=saved[k];});apply(saved);}}catch(e){}
+ toggle.addEventListener('click',()=>{panel.hidden=!panel.hidden;toggle.setAttribute('aria-expanded',String(!panel.hidden));});
+ document.getElementById('roster-semester-save').addEventListener('click',()=>{
+ const v=Object.fromEntries(Object.entries(fields).map(([k,el])=>[k,el.value.trim()]));
+ if(!/^25\d{2}$|^26\d{2}$/.test(v.year)||!['1','2','3'].includes(v.semester)||!/^\d{1,4}$/.test(v.sec)||!/^\d{1,4}$/.test(v.lab)){status.textContent='Check year, semester, section and lab.';return;}
+ apply(v);try{localStorage.setItem(key,JSON.stringify(v));status.textContent='Link updated in this browser.';}catch(e){status.textContent='Link updated; browser storage unavailable.';}
+ });
+})();
