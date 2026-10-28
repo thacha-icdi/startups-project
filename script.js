@@ -672,6 +672,13 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
    authStatus.textContent=error?'Login could not be sent. Contact the system administrator.':'Check your email for the secure login link.';
  });
  logout.addEventListener('click',async()=>{if(client)await client.auth.signOut();await refreshAuth();});
+ document.getElementById('roster-semester-prepare').addEventListener('click',()=>{
+   const u=valid(urlInput.value.trim());
+   if(!u){status.textContent='Enter a valid official CMU 888399 roster URL.';return;}
+   if(!/^2[5-6][0-9]{2}$/.test(year.value)||!['1','2','3'].includes(semester.value)||!/^[0-9]{1,4}$/.test(sec.value)||!/^[0-9]{1,4}$/.test(lab.value)){status.textContent='Check year, semester, section and lab.';return;}
+   for(const [k,el] of Object.entries({year,semester,sec,lab}))u.searchParams.set(k,el.value);
+   urlInput.value=u.href;status.textContent='Link prepared. Click Save for All Students (Admin) to publish.';
+ });
  save.addEventListener('click',async()=>{
    if(!client||!authorized){status.textContent='Authorized admin sign-in is required.';return;}
    const u=valid(urlInput.value.trim());
@@ -681,7 +688,7 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
    save.disabled=true;
    const {data,error}=await client.from('site_settings').update({setting_value:u.href,updated_at:new Date().toISOString()}).eq('setting_key','student_roster_888399').select('setting_value').single();
    save.disabled=!authorized;
-   if(error||!data){status.textContent='Update denied or failed. No change was published.';return;}
+   if(error||!data){status.textContent='Update denied or failed: '+(error?.message||'No matching database row or insufficient permission')+'. Check SQL policies and table data.';return;}
    publish(u);status.textContent='Saved securely. The shared student-list link is now updated for everyone.';
  });
  document.getElementById('roster-semester-clear').addEventListener('click',()=>{urlInput.value='';year.value='';semester.value='2';sec.value='';lab.value='';status.textContent='Editor cleared; published link unchanged.';});
