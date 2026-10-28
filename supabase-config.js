@@ -1,6 +1,5 @@
-// Set the public Supabase project URL and publishable (anon) key here.
-// Never put a service_role or secret key in this public GitHub Pages repository.
+// Public browser configuration. Never place Supabase secret/service_role keys here.
 window.STARTUPS_SUPABASE_CONFIG = {
-  url: '',
-  publishableKey: ''
+  url: 'https://husojjbhrjisulminqpk.supabase.co',
+  publishableKey: 'sb_publishable_9MEjjlQ7euPH81RRL9-VeQ_GgdiPYL0'
 };
