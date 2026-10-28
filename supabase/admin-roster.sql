@@ -41,3 +41,17 @@ using (setting_key = 'student_roster_888399' and (select public.is_roster_admin(
 with check (setting_key = 'student_roster_888399' and (select public.is_roster_admin()));
 -- Configure Supabase Auth: disable public signups; invite the five admin emails.
 -- Enable a trusted email sign-in flow; for university SSO, configure CMU's supported OIDC/SAML provider.
+
+-- Add the other two courses without inventing enrollment URLs.
+insert into public.site_settings(setting_key,setting_value)
+values ('student_roster_888498',''),('student_roster_888499','')
+on conflict (setting_key) do nothing;
+drop policy if exists "Public can read published settings" on public.site_settings;
+create policy "Public can read published settings" on public.site_settings
+for select to anon,authenticated
+using (setting_key in ('student_roster_888399','student_roster_888498','student_roster_888499'));
+drop policy if exists "Only confirmed roster admins update settings" on public.site_settings;
+create policy "Only confirmed roster admins update settings" on public.site_settings
+for update to authenticated
+using (setting_key in ('student_roster_888399','student_roster_888498','student_roster_888499') and (select public.is_roster_admin()))
+with check (setting_key in ('student_roster_888399','student_roster_888498','student_roster_888499') and (select public.is_roster_admin()));
