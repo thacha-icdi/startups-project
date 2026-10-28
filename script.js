@@ -633,3 +633,25 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
   });
 })();
 
+
+/* Admin roster URL preparation; publication requires GitHub repository authorization. */
+(() => {
+ const toggle=document.getElementById('roster-semester-toggle');
+ const panel=document.getElementById('roster-semester-settings');
+ const urlInput=document.getElementById('roster-custom-url');
+ const link=document.querySelector('.student-list-399-link a');
+ if(!toggle||!panel||!urlInput||!link)return;
+ const year=document.getElementById('roster-academic-year'),semester=document.getElementById('roster-semester'),sec=document.getElementById('roster-section'),lab=document.getElementById('roster-lab'),status=document.getElementById('roster-semester-status');
+ urlInput.value=link.href;
+ const parse=()=>{try{const u=new URL(urlInput.value.trim());return u.protocol==='https:'&&u.hostname==='www1.reg.cmu.ac.th'&&u.pathname==='/registrationoffice/student_list_enrollment.php'?u:null;}catch(e){return null;}};
+ toggle.addEventListener('click',()=>{panel.hidden=!panel.hidden;toggle.setAttribute('aria-expanded',String(!panel.hidden));});
+ urlInput.addEventListener('change',()=>{const u=parse();if(!u){status.textContent='Use an official CMU student-list URL.';return;}for(const [k,el] of Object.entries({year,semester,sec,lab})){const v=u.searchParams.get(k);if(v!==null)el.value=v;}status.textContent='URL accepted.';});
+ document.getElementById('roster-semester-save').addEventListener('click',()=>{
+ const u=parse();if(!u){status.textContent='Invalid official CMU student-list URL.';return;}
+ if(!/^2[5-6][0-9]{2}$/.test(year.value)||!['1','2','3'].includes(semester.value)||!/^[0-9]{1,4}$/.test(sec.value)||!/^[0-9]{1,4}$/.test(lab.value)){status.textContent='Check year, semester, section and lab.';return;}
+ for(const [k,el] of Object.entries({year,semester,sec,lab}))u.searchParams.set(k,el.value);
+ urlInput.value=u.href;
+ status.textContent='Updated URL prepared. To publish for all students, an authorized admin must edit index.html through GitHub.';
+ });
+ document.getElementById('roster-semester-clear').addEventListener('click',()=>{urlInput.value='';year.value='';semester.value='2';sec.value='';lab.value='';status.textContent='Editor cleared. Published link unchanged.';});
+})();
