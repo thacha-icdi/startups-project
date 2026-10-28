@@ -605,3 +605,30 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
   document.querySelectorAll('.profile-course').forEach(button=>button.addEventListener('click',update));
   update();
 })();
+
+/* Live preview for every startup workspace task. */
+(() => {
+  document.querySelectorAll('form .task-live-preview').forEach(preview => {
+    const form=preview.closest('form');
+    const output=preview.querySelector('.task-preview-details');
+    const heading=preview.querySelector('h4');
+    const workspace=form.closest('.validation-workspace');
+    const title=workspace?.querySelector('.workspace-head h4')?.textContent?.trim();
+    heading.textContent=title||form.id.replace(/-form$/,'').replace(/-/g,' ');
+    function render(){
+      output.replaceChildren();
+      form.querySelectorAll('input[name]:not([type=file]),textarea[name],select[name]').forEach(field=>{
+        if(field.type==='hidden'||field.type==='button'||field.type==='submit')return;
+        const label=field.closest('label')?.childNodes[0]?.textContent?.trim()||field.name;
+        const value=field.type==='checkbox'?(field.checked?'Yes':'No'):field.value.trim();
+        const dt=document.createElement('dt'),dd=document.createElement('dd');
+        dt.textContent=label;dd.textContent=value||'—';
+        output.append(dt,dd);
+      });
+    }
+    form.addEventListener('input',render);
+    form.addEventListener('change',render);
+    form.addEventListener('reset',()=>setTimeout(render,0));
+    render();
+  });
+})();
