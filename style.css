@@ -368,3 +368,10 @@ form .task-preview-note{font-size:12px;color:#667085;line-height:1.5}
 .hero-course-description{color:#fff;font-size:clamp(14px,1.4vw,20px);line-height:1.55;font-weight:600}
 .hero-course-description [lang=en]{font-size:.9em;color:#cbd5e1;font-weight:500;margin-top:3px}
 @media(max-width:700px){.hero-course-entry{grid-template-columns:1fr;gap:4px}.hero-course-list{gap:22px}.hero-course-description{font-size:15px}}
+
+/* Prevent large course codes from overlapping bilingual course titles. */
+.hero .hero-course-list{width:100%;max-width:100%;box-sizing:border-box}
+.hero .hero-course-entry{display:grid!important;grid-template-columns:minmax(0,auto) minmax(0,1fr)!important;column-gap:clamp(22px,3vw,48px)!important;align-items:center!important;width:100%;min-width:0}
+.hero .hero-course-number{display:block!important;width:auto!important;min-width:0!important;max-width:none!important;white-space:nowrap!important;font-size:clamp(38px,5vw,76px)!important;letter-spacing:-.045em!important;line-height:1.12!important}
+.hero .hero-course-description{min-width:0!important;position:static!important;overflow-wrap:anywhere!important;padding-left:0!important;line-height:1.55!important}
+@media(max-width:850px){.hero .hero-course-entry{grid-template-columns:1fr!important;row-gap:7px!important}.hero .hero-course-description{padding-left:0!important}}
