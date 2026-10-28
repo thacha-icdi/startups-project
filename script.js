@@ -716,3 +716,33 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
   if(client){client.auth.onAuthStateChange(()=>setTimeout(refresh,0));load();}refresh();
  }
 })();
+
+/* Advisor/co-advisor selectors shared by course profiles 888399, 888498 and 888499. */
+(() => {
+ const form=document.getElementById('profile-form');if(!form)return;
+ const selectors=[...form.querySelectorAll('select[data-advisor-field]')];
+ const update=select=>{
+  const input=form.elements.namedItem(select.dataset.advisorField);if(!input)return;
+  const value=input.value.trim();
+  const known=[...select.options].some(option=>option.value===value&&value!=='__other__');
+  select.value=known?value:(value?'__other__':'');
+  const manual=select.value==='__other__';
+  input.hidden=!manual;
+  input.style.setProperty('display',manual?'block':'none','important');
+  input.required=manual&&select.dataset.advisorField==='advisorName';
+ };
+ selectors.forEach(select=>{
+  const input=form.elements.namedItem(select.dataset.advisorField);
+  select.addEventListener('change',()=>{
+   if(select.value==='__other__'){
+    input.value='';input.hidden=false;input.style.setProperty('display','block','important');input.required=select.dataset.advisorField==='advisorName';input.focus();
+   }else{
+    input.value=select.value;input.hidden=true;input.style.setProperty('display','none','important');input.required=false;
+   }
+   input.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  update(select);
+ });
+ document.querySelectorAll('[data-profile-course]').forEach(button=>button.addEventListener('click',()=>setTimeout(()=>selectors.forEach(update),0)));
+ form.addEventListener('reset',()=>setTimeout(()=>selectors.forEach(update),0));
+})();
