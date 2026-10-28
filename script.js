@@ -633,50 +633,6 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
   });
 })();
 
-/* Private, browser-local manually managed roster for course 888399. */
-(() => {
-  const key='startups-business-local-roster-888399';
-  const form=document.getElementById('profile-form');
-  const nameInput=document.getElementById('roster-student-name');
-  const idInput=document.getElementById('roster-student-id');
-  const list=document.getElementById('roster-admin-list');
-  const status=document.getElementById('roster-admin-status');
-  const picks=[...document.querySelectorAll('[data-roster-slot]')];
-  if(!form||!nameInput||!idInput||!list)return;
-  let students=[];
-  try{const saved=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(saved))students=saved.filter(s=>s&&typeof s.name==='string'&&typeof s.id==='string');}catch(e){}
-  const save=()=>{try{localStorage.setItem(key,JSON.stringify(students));status.textContent='Saved in this browser.';}catch(e){status.textContent='Could not save on this browser.';}};
-  function render(){
-    list.replaceChildren();
-    students.forEach((s,i)=>{
-      const row=document.createElement('div');row.className='roster-item';
-      const label=document.createElement('span');label.textContent=s.name+' — '+s.id;
-      const remove=document.createElement('button');remove.type='button';remove.textContent='Remove';remove.addEventListener('click',()=>{students.splice(i,1);save();render();});
-      row.append(label,remove);list.append(row);
-    });
-    picks.forEach(p=>{
-      const previous=p.value;p.replaceChildren();
-      const blank=document.createElement('option');blank.value='';blank.textContent='Select student';p.append(blank);
-      students.forEach(s=>{const option=document.createElement('option');option.value=s.id;option.textContent=s.name+' ('+s.id+')';p.append(option);});
-      if(students.some(s=>s.id===previous))p.value=previous;
-    });
-  }
-  document.getElementById('roster-add').addEventListener('click',()=>{
-    const name=nameInput.value.trim(),id=idInput.value.trim();
-    if(!name||!id){status.textContent='Enter both name and student ID.';return;}
-    if(students.some(s=>s.id===id)){status.textContent='Student ID already exists.';return;}
-    students.push({name,id});students.sort((a,b)=>a.name.localeCompare(b.name));
-    save();nameInput.value='';idInput.value='';render();
-  });
-  picks.forEach(p=>p.addEventListener('change',()=>{
-    const s=students.find(item=>item.id===p.value);if(!s)return;
-    const n=p.dataset.rosterSlot;
-    const name=form.elements.namedItem('studentName'+n),id=form.elements.namedItem('studentId'+n);
-    if(name&&id){name.value=s.name;id.value=s.id;name.dispatchEvent(new Event('input',{bubbles:true}));id.dispatchEvent(new Event('input',{bubbles:true}));}
-  }));
-  render();
-})();
-
 /* Update the official enrollment roster link for a new semester, locally. */
 (() => {
  const toggle=document.getElementById('roster-semester-toggle'),panel=document.getElementById('roster-semester-settings');
