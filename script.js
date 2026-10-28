@@ -775,3 +775,44 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
  }
 })();
 
+
+/* Private student roster documents: Supabase Storage RLS enforces upload and download rights. */
+(()=>{
+ const cfg=window.STARTUPS_SUPABASE_CONFIG||{};
+ const client=cfg.url&&cfg.publishableKey&&window.supabase?.createClient?window.supabase.createClient(cfg.url,cfg.publishableKey):null;
+ const bucket='private-student-rosters';
+ const types={pdf:'application/pdf',xlsx:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
+ for(const course of ['888399','888498','888499']){
+  const find=cls=>document.querySelector('.'+cls+'[data-roster-course="'+course+'"]');
+  const input=find('roster-file-input'),upload=find('roster-file-upload'),open=find('roster-file-open'),status=find('roster-upload-status'),viewStatus=find('roster-file-status');
+  if(!input||!upload||!open)continue;
+  upload.addEventListener('click',async()=>{
+   const file=input.files?.[0];if(!file){status.textContent='Choose a file first.';return;}
+   const ext=file.name.split('.').pop().toLowerCase();
+   if(!types[ext]||file.size>10*1024*1024||file.size===0){status.textContent='Use PDF, DOCX or XLSX up to 10 MB.';return;}
+   if(!client){status.textContent='Supabase unavailable.';return;}
+   upload.disabled=true;status.textContent='Checking admin access…';
+   try{
+    const {data:{user}}=await client.auth.getUser();
+    const admin=user?await client.rpc('is_roster_admin'):{data:false};
+    if(!user||admin.error||admin.data!==true){status.textContent='Sign in as an authorized admin using the admin login above.';return;}
+    const path=course+'/roster.'+ext;
+    const result=await client.storage.from(bucket).upload(path,file,{upsert:true,contentType:types[ext]});
+    if(result.error){status.textContent='Upload denied or storage not configured: '+result.error.message;return;}
+    const metadata=await client.from('site_settings').upsert({setting_key:'student_roster_file_'+course,setting_value:path,updated_at:new Date().toISOString()},{onConflict:'setting_key'});
+    if(metadata.error){status.textContent='File uploaded, but publishing failed: '+metadata.error.message;return;}
+    status.textContent='Uploaded securely. Signed-in users can open the roster.';
+   }catch(e){status.textContent='Upload failed: '+e.message;}finally{upload.disabled=false;}
+  });
+  open.addEventListener('click',async()=>{
+   if(!client){viewStatus.textContent='Supabase unavailable.';return;}
+   const {data:{user}}=await client.auth.getUser();
+   if(!user){viewStatus.textContent='Sign in with a permitted university account first (Admin panel).';return;}
+   const {data,error}=await client.from('site_settings').select('setting_value').eq('setting_key','student_roster_file_'+course).maybeSingle();
+   if(error||!data?.setting_value){viewStatus.textContent='No uploaded roster available for this course.';return;}
+   const result=await client.storage.from(bucket).createSignedUrl(data.setting_value,60);
+   if(result.error){viewStatus.textContent='Access denied: '+result.error.message;return;}
+   window.open(result.data.signedUrl,'_blank','noopener,noreferrer');viewStatus.textContent='Opening private roster (link expires in 60 seconds).';
+  });
+ }
+})();
