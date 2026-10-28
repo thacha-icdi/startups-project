@@ -5,4 +5,4 @@ window.STARTUPS_SUPABASE_CONFIG = {
 };
 
 // Load the course Excel roster interface after the page is ready.
-document.addEventListener('DOMContentLoaded',()=>{const e=document.createElement('script');e.src='roster-excel.js?v=20261028-18';document.body.appendChild(e);});
+document.addEventListener('DOMContentLoaded',()=>{const e=document.createElement('script');e.src='roster-excel.js?v=20261028-19';document.body.appendChild(e);});
