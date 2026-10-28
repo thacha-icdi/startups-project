@@ -81,7 +81,7 @@ form .task-preview-details dt{font-weight:700;margin-top:12px}form .task-preview
 <label>Academic Year (B.E.) <input id="roster-academic-year" type="number" value="2569"></label>
 <label>Semester <select id="roster-semester"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></label>
 <label>Section <input id="roster-section" value="000"></label><label>Lab <input id="roster-lab" value="701"></label>
-<button type="button" id="roster-semester-save">Prepare Link (No Login)</button><button type="button" id="roster-semester-clear">Clear</button>
+<button type="button" id="roster-semester-prepare">Prepare Link (No Login)</button><button type="button" id="roster-semester-save" disabled>Save for All Students (Admin)</button><button type="button" id="roster-semester-clear">Clear</button>
 
 <span id="roster-semester-status" aria-live="polite"></span></div>
     <div class="student-list-399-link student-list-888498-link"><a href="#" target="_blank" rel="noopener noreferrer">Student List of 888498 (Not configured)</a><small>Official CMU registration roster. Updates are restricted to authenticated administrators.</small><button type="button" id="roster-888498-semester-toggle" aria-expanded="false" aria-controls="roster-888498-semester-settings">Update Semester / Year (Admin)</button></div>
@@ -479,7 +479,7 @@ form .task-preview-details dt{font-weight:700;margin-top:12px}form .task-preview
 <footer><strong>Startups Business Project</strong><span>Proof → Prototype → Test Run</span></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="supabase-config.js"></script>
-<script src="script.js?v=20261028-roster-prepare-5"></script>
+<script src="script.js?v=20261028-roster399-admin-publish-5"></script>
 <script>
 (function(){
  const form=document.getElementById('profile-form'), output=document.getElementById('profile-preview-details'),course=document.getElementById('preview-course');
