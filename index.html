@@ -6,6 +6,16 @@
   <title>Startups Business Project</title>
   <meta name="description" content="A practical startup learning platform from business concept validation to prototype and market test run.">
   <link rel="stylesheet" href="style.css?v=20261028-profile-preview-2">
+<style id="profile-layout-fix">
+@media screen and (min-width:700px){
+#dashboard #profile-form.profile-card{width:calc(100% - 24px)!important;max-width:1500px!important;margin:0 auto 28px!important}
+#dashboard #profile-form>.profile-live-layout{display:grid!important;grid-template-columns:minmax(0,3fr) minmax(300px,2fr)!important;gap:24px!important;align-items:start!important}
+#dashboard #profile-form .profile-edit-fields{grid-column:1!important;min-width:0!important}
+#dashboard #profile-form .profile-live-preview{grid-column:2!important;display:block!important;position:sticky!important;top:85px!important;margin:0!important;min-height:280px!important}
+}
+@media screen and (max-width:699px){#dashboard #profile-form>.profile-live-layout{display:block!important}#dashboard #profile-form .profile-live-preview{display:block!important;margin-top:20px!important}}
+@media print{body.printing-profile #dashboard #profile-form>.profile-live-layout{display:block!important}body.printing-profile #dashboard .profile-live-preview{display:none!important}}
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -409,5 +419,14 @@
 
 <footer><strong>Startups Business Project</strong><span>Proof → Prototype → Test Run</span></footer>
 <script src="script.js?v=20261028-profile-preview-2"></script>
+<script>
+(function(){
+ const form=document.getElementById('profile-form'), output=document.getElementById('profile-preview-details'),course=document.getElementById('preview-course');
+ if(!form||!output)return;
+ const fields=[['projectName','Startup / Project Name'],['targetCustomer','Target Customer'],['studentName1','Student Name 1'],['studentId1','Student ID 1'],['studentName2','Student Name 2'],['studentId2','Student ID 2'],['studentName3','Student Name 3'],['studentId3','Student ID 3'],['advisorName','Advisor'],['coAdvisorName','Co-advisor'],['startupProblem','Startup Problem / Opportunity']];
+ function refresh(){const active=document.querySelector('.profile-course.active');if(course)course.textContent=active?.dataset.profileCourse||'888399';output.replaceChildren();for(const [key,label] of fields){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=form.elements.namedItem(key)?.value||'—';output.append(dt,dd)}}
+ form.addEventListener('input',refresh);form.addEventListener('change',refresh);form.addEventListener('reset',()=>setTimeout(refresh,0));document.querySelectorAll('.profile-course').forEach(b=>b.addEventListener('click',()=>setTimeout(refresh,0)));refresh();
+})();
+</script>
 </body>
 </html>
