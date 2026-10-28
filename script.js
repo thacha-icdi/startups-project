@@ -666,3 +666,31 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
    try{localStorage.setItem(key,JSON.stringify({...v,url:u.href}));status.textContent='Student List link updated in this browser.';}catch(e){status.textContent='Link updated; browser storage unavailable.';}
  });
 })();
+
+/* Academic staff dropdowns with editable fallback, retaining existing profile field names. */
+(() => {
+ const form=document.getElementById('profile-form');if(!form)return;
+ const selects=[...form.querySelectorAll('select[data-advisor-field]')];
+ function sync(select){
+   const input=form.elements.namedItem(select.dataset.advisorField);if(!input)return;
+   const val=input.value.trim();
+   const known=[...select.options].some(o=>o.value===val&&val!=='__other__');
+   select.value=known?val:(val?'__other__':'');
+   input.style.display=select.value==='__other__'?'block':'none';
+   input.required=select.value==='__other__'&&select.dataset.advisorField==='advisorName';
+ }
+ selects.forEach(select=>{
+   const input=form.elements.namedItem(select.dataset.advisorField);
+   select.addEventListener('change',()=>{
+     if(select.value==='__other__'){input.value='';input.style.display='block';input.focus();}
+     else{input.value=select.value;input.style.display='none';}
+     input.required=select.value==='__other__'&&select.dataset.advisorField==='advisorName';
+     input.dispatchEvent(new Event('input',{bubbles:true}));
+   });
+   sync(select);
+ });
+ // The profile switches courses and restores drafts asynchronously through its existing handler.
+ const observer=new MutationObserver(()=>{selects.forEach(sync);});
+ const label=document.getElementById('profile-course-label');
+ if(label)observer.observe(label,{childList:true,characterData:true,subtree:true});
+})();
