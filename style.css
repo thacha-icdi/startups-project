@@ -375,3 +375,9 @@ form .task-preview-note{font-size:12px;color:#667085;line-height:1.5}
 .hero .hero-course-number{display:block!important;width:auto!important;min-width:0!important;max-width:none!important;white-space:nowrap!important;font-size:clamp(38px,5vw,76px)!important;letter-spacing:-.045em!important;line-height:1.12!important}
 .hero .hero-course-description{min-width:0!important;position:static!important;overflow-wrap:anywhere!important;padding-left:0!important;line-height:1.55!important}
 @media(max-width:850px){.hero .hero-course-entry{grid-template-columns:1fr!important;row-gap:7px!important}.hero .hero-course-description{padding-left:0!important}}
+
+/* Hide obsolete student roster controls across all courses. */
+.student-list-399-link,
+#roster-semester-settings,
+#roster-888498-semester-settings,
+#roster-888499-semester-settings { display: none !important; }
