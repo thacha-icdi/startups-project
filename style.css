@@ -321,3 +321,16 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
 .profile-preview-note{font-size:12px;color:#667085;line-height:1.5;margin-top:18px}
 @media(max-width:999px){.profile-live-layout{display:block}.profile-live-preview{margin-top:22px}}
 @media print{body.printing-profile .profile-live-preview{display:none!important}.profile-live-layout{display:block!important}}
+
+/* Keep the live preview visible beside the form on tablet and desktop. */
+@media (min-width:700px){
+  #profile-form.profile-card{max-width:1360px!important;width:100%!important}
+  #profile-form .profile-live-layout{display:grid!important;grid-template-columns:minmax(0,1.35fr) minmax(230px,.9fr)!important;gap:18px!important;align-items:start!important}
+  #profile-form .profile-live-preview{display:block!important;position:sticky;top:16px}
+  #profile-form .profile-pair-row{column-gap:12px!important}
+}
+@media (max-width:699px){
+  #profile-form .profile-live-layout{display:flex!important;flex-direction:column!important}
+  #profile-form .profile-live-preview{display:block!important;width:100%;box-sizing:border-box;margin-top:16px}
+}
+@media print{body.printing-profile #profile-form .profile-live-layout{display:block!important}}
