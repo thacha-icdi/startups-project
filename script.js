@@ -746,3 +746,24 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
  document.querySelectorAll('[data-profile-course]').forEach(button=>button.addEventListener('click',()=>setTimeout(()=>selectors.forEach(update),0)));
  form.addEventListener('reset',()=>setTimeout(()=>selectors.forEach(update),0));
 })();
+
+/* Unrestricted URL preparation; shared publication remains protected by Supabase RLS. */
+(() => {
+ for(const course of ['888399','888498','888499']){
+  const p=course==='888399'?'roster-':'roster-'+course+'-';
+  const get=s=>document.getElementById(p+s);
+  const button=get('semester-save'),input=get('custom-url'),year=get('academic-year'),semester=get('semester'),sec=get('section'),lab=get('lab'),status=get('semester-status');
+  if(!button||!input||!status)continue;
+  button.disabled=false;
+  button.textContent='Prepare Link (No Login)';
+  button.addEventListener('click',()=>{
+   let u;
+   try{u=new URL(input.value.trim());}catch(e){status.textContent='Enter a valid URL.';return;}
+   if(u.protocol!=='https:'||u.hostname!=='www1.reg.cmu.ac.th'||u.pathname!=='/registrationoffice/student_list_enrollment.php'||u.searchParams.get('course')!==course){status.textContent='Use the official CMU student-list URL for '+course+'.';return;}
+   if(!/^2[5-6][0-9]{2}$/.test(year.value)||!['1','2','3'].includes(semester.value)||!/^[0-9]{1,4}$/.test(sec.value)||!/^[0-9]{1,4}$/.test(lab.value)){status.textContent='Check year, semester, section and lab.';return;}
+   for(const [k,v] of Object.entries({year,semester,sec,lab}))u.searchParams.set(k,v.value);
+   input.value=u.href;
+   status.textContent='Link prepared. Shared publication still requires an authorized admin login.';
+  },true);
+ }
+})();
