@@ -576,3 +576,32 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
     });
   });
 })();
+
+/* Live profile preview, updated without requiring a save. */
+(() => {
+  const form=document.getElementById('profile-form');
+  const details=document.getElementById('profile-preview-details');
+  const course=document.getElementById('preview-course');
+  if(!form||!details)return;
+  const fields=[
+    ['projectName','Startup / Project Name'],['targetCustomer','Target Customer'],
+    ['studentName1','Student Name 1'],['studentId1','Student ID 1'],
+    ['studentName2','Student Name 2'],['studentId2','Student ID 2'],
+    ['studentName3','Student Name 3'],['studentId3','Student ID 3'],
+    ['advisorName','Advisor'],['coAdvisorName','Co-advisor'],
+    ['startupProblem','Startup Problem / Opportunity']
+  ];
+  function update(){
+    course.textContent=activeProfileCourse;
+    details.replaceChildren();
+    fields.forEach(([name,label])=>{
+      const dt=document.createElement('dt');dt.textContent=label;
+      const dd=document.createElement('dd');dd.textContent=form.elements[name]?.value.trim()||'—';
+      details.append(dt,dd);
+    });
+  }
+  form.addEventListener('input',update);
+  form.addEventListener('reset',()=>queueMicrotask(update));
+  document.querySelectorAll('.profile-course').forEach(button=>button.addEventListener('click',update));
+  update();
+})();
