@@ -111,17 +111,16 @@ form .task-preview-details dt{font-weight:700;margin-top:12px}form .task-preview
       <label>Startup / Project Name<input name="projectName" placeholder="Your startup name"></label>
       <label>Target Customer<input name="targetCustomer" placeholder="Primary customer segment"></label>
     </div>
-    <div class="profile-roster-import"><strong>Student List for this course</strong><p>For privacy, the CMU enrollment page cannot be read automatically by this public website. An authorized lecturer can import an Excel-exported CSV roster into this browser. The list stays on this device.</p><label>Import CSV (Student ID, NAME) <input type="file" id="profile-roster-csv" accept=".csv,text/csv"></label><button type="button" id="profile-roster-clear">Clear local roster</button><span id="profile-roster-status" aria-live="polite"></span></div>
     <div class="profile-pair-row">
-      <label>Student Name 1<select class="student-roster-select" data-student-slot="1" aria-label="Choose student 1 from course roster"><option value="">Choose student from course roster</option></select><input name="studentName1" placeholder="Student name 1" required></label>
+      <label>Student Name 1<input name="studentName1" placeholder="Student name 1" required></label>
       <label>Student ID 1<input name="studentId1" placeholder="Student ID 1" required></label>
     </div>
     <div class="profile-pair-row">
-      <label>Student Name 2 <small>(Optional)</small><select class="student-roster-select" data-student-slot="2" aria-label="Choose student 2 from course roster"><option value="">Choose student from course roster</option></select><input name="studentName2" placeholder="Student name 2"></label>
+      <label>Student Name 2 <small>(Optional)</small><input name="studentName2" placeholder="Student name 2"></label>
       <label>Student ID 2 <small>(Optional)</small><input name="studentId2" placeholder="Student ID 2"></label>
     </div>
     <div class="profile-pair-row">
-      <label>Student Name 3 <small>(Optional)</small><select class="student-roster-select" data-student-slot="3" aria-label="Choose student 3 from course roster"><option value="">Choose student from course roster</option></select><input name="studentName3" placeholder="Student name 3"></label>
+      <label>Student Name 3 <small>(Optional)</small><input name="studentName3" placeholder="Student name 3"></label>
       <label>Student ID 3 <small>(Optional)</small><input name="studentId3" placeholder="Student ID 3"></label>
     </div>
     <div class="profile-pair-row advisor-row">
@@ -480,7 +479,7 @@ form .task-preview-details dt{font-weight:700;margin-top:12px}form .task-preview
 <footer><strong>Startups Business Project</strong><span>Proof → Prototype → Test Run</span></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="supabase-config.js"></script>
-<script src="script.js?v=20261028-private-roster-6"></script>
+<script src="script.js?v=20261028-revert-private-roster-7"></script>
 <script>
 (function(){
  const form=document.getElementById('profile-form'), output=document.getElementById('profile-preview-details'),course=document.getElementById('preview-course');
