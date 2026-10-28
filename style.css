@@ -334,3 +334,12 @@ footer{padding:30px 6vw;background:#070c14;color:#fff;display:flex;justify-conte
   #profile-form .profile-live-preview{display:block!important;width:100%;box-sizing:border-box;margin-top:16px}
 }
 @media print{body.printing-profile #profile-form .profile-live-layout{display:block!important}}
+
+/* Definitive desktop two-column project profile and visible live results */
+@media screen and (min-width:700px){
+  section#dashboard{width:100%;box-sizing:border-box}
+  section#dashboard form#profile-form{display:block!important;width:min(100%,1360px)!important;max-width:1360px!important;margin:0 auto 28px!important}
+  section#dashboard form#profile-form>.profile-live-layout{display:grid!important;grid-template-columns:minmax(0,3fr) minmax(280px,2fr)!important;gap:24px!important;width:100%!important;align-items:start!important}
+  section#dashboard form#profile-form .profile-edit-fields{grid-column:1;min-width:0}
+  section#dashboard form#profile-form aside.profile-live-preview{grid-column:2;display:block!important;visibility:visible!important;position:sticky;top:20px;margin:0!important;min-width:0}
+}
