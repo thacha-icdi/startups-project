@@ -799,7 +799,7 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
     const path=course+'/roster.'+ext;
     const result=await client.storage.from(bucket).upload(path,file,{upsert:true,contentType:types[ext]});
     if(result.error){status.textContent='Upload denied or storage not configured: '+result.error.message;return;}
-    const metadata=await client.from('site_settings').upsert({setting_key:'student_roster_file_'+course,setting_value:path,updated_at:new Date().toISOString()},{onConflict:'setting_key'});
+    const metadata=await client.from('site_settings').update({setting_value:path,updated_at:new Date().toISOString()}).eq('setting_key','student_roster_file_'+course).select('setting_key').single();
     if(metadata.error){status.textContent='File uploaded, but publishing failed: '+metadata.error.message;return;}
     status.textContent='Uploaded securely. Signed-in users can open the roster.';
    }catch(e){status.textContent='Upload failed: '+e.message;}finally{upload.disabled=false;}
@@ -807,7 +807,7 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
   open.addEventListener('click',async()=>{
    if(!client){viewStatus.textContent='Supabase unavailable.';return;}
    const {data:{user}}=await client.auth.getUser();
-   if(!user){viewStatus.textContent='Sign in with a permitted university account first (Admin panel).';return;}
+   if(!user){viewStatus.textContent='Sign in with an account authorized in Supabase first (Admin panel).';return;}
    const {data,error}=await client.from('site_settings').select('setting_value').eq('setting_key','student_roster_file_'+course).maybeSingle();
    if(error||!data?.setting_value){viewStatus.textContent='No uploaded roster available for this course.';return;}
    const result=await client.storage.from(bucket).createSignedUrl(data.setting_value,60);
