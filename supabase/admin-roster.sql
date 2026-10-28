@@ -55,3 +55,35 @@ create policy "Only confirmed roster admins update settings" on public.site_sett
 for update to authenticated
 using (setting_key in ('student_roster_888399','student_roster_888498','student_roster_888499') and (select public.is_roster_admin()))
 with check (setting_key in ('student_roster_888399','student_roster_888498','student_roster_888499') and (select public.is_roster_admin()));
+
+-- PRIVATE roster document uploads. Run this block in Supabase SQL Editor before use.
+-- The bucket is not public: student personal data must not be exposed on GitHub Pages.
+insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types)
+values ('private-student-rosters','private-student-rosters',false,10485760,
+ array['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])
+on conflict (id) do update set public=false,file_size_limit=10485760,allowed_mime_types=excluded.allowed_mime_types;
+
+drop policy if exists "Roster documents readable by signed in users" on storage.objects;
+create policy "Roster documents readable by signed in users" on storage.objects
+for select to authenticated using (bucket_id='private-student-rosters');
+drop policy if exists "Only roster admins upload documents" on storage.objects;
+create policy "Only roster admins upload documents" on storage.objects
+for insert to authenticated with check (bucket_id='private-student-rosters' and (select public.is_roster_admin()) and (storage.foldername(name))[1] in ('888399','888498','888499'));
+drop policy if exists "Only roster admins replace documents" on storage.objects;
+create policy "Only roster admins replace documents" on storage.objects
+for update to authenticated using (bucket_id='private-student-rosters' and (select public.is_roster_admin()))
+with check (bucket_id='private-student-rosters' and (select public.is_roster_admin()));
+
+insert into public.site_settings(setting_key,setting_value)
+values ('student_roster_file_888399',''),('student_roster_file_888498',''),('student_roster_file_888499','')
+on conflict (setting_key) do nothing;
+drop policy if exists "Read private roster file references" on public.site_settings;
+create policy "Read private roster file references" on public.site_settings
+for select to authenticated using (setting_key in ('student_roster_file_888399','student_roster_file_888498','student_roster_file_888499'));
+drop policy if exists "Admins publish private roster file references" on public.site_settings;
+create policy "Admins publish private roster file references" on public.site_settings
+for insert to authenticated with check (setting_key in ('student_roster_file_888399','student_roster_file_888498','student_roster_file_888499') and (select public.is_roster_admin()));
+drop policy if exists "Admins update private roster file references" on public.site_settings;
+create policy "Admins update private roster file references" on public.site_settings
+for update to authenticated using (setting_key in ('student_roster_file_888399','student_roster_file_888498','student_roster_file_888499') and (select public.is_roster_admin()))
+with check (setting_key in ('student_roster_file_888399','student_roster_file_888498','student_roster_file_888499') and (select public.is_roster_admin()));
