@@ -801,18 +801,16 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
     if(result.error){status.textContent='Upload denied or storage not configured: '+result.error.message;return;}
     const metadata=await client.from('site_settings').update({setting_value:path,updated_at:new Date().toISOString()}).eq('setting_key','student_roster_file_'+course).select('setting_key').single();
     if(metadata.error){status.textContent='File uploaded, but publishing failed: '+metadata.error.message;return;}
-    status.textContent='Uploaded securely. Signed-in users can open the roster.';
+    status.textContent='Uploaded. Visitors can open the roster without signing in.';
    }catch(e){status.textContent='Upload failed: '+e.message;}finally{upload.disabled=false;}
   });
   open.addEventListener('click',async()=>{
    if(!client){viewStatus.textContent='Supabase unavailable.';return;}
-   const {data:{user}}=await client.auth.getUser();
-   if(!user){viewStatus.textContent='Sign in with an account authorized in Supabase first (Admin panel).';return;}
    const {data,error}=await client.from('site_settings').select('setting_value').eq('setting_key','student_roster_file_'+course).maybeSingle();
    if(error||!data?.setting_value){viewStatus.textContent='No uploaded roster available for this course.';return;}
    const result=await client.storage.from(bucket).createSignedUrl(data.setting_value,60);
    if(result.error){viewStatus.textContent='Access denied: '+result.error.message;return;}
-   window.open(result.data.signedUrl,'_blank','noopener,noreferrer');viewStatus.textContent='Opening private roster (link expires in 60 seconds).';
+   window.open(result.data.signedUrl,'_blank','noopener,noreferrer');viewStatus.textContent='Opening roster (link expires in 60 seconds).';
   });
  }
 })();
