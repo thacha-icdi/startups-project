@@ -73,16 +73,16 @@ form .task-preview-details dt{font-weight:700;margin-top:12px}form .task-preview
       <span class="course-arrow">→</span>
       <button type="button" class="profile-course" data-profile-course="888499"><strong>888499</strong><span>Business Test Run</span></button>
     </div>
-    <div class="student-list-399-link"><a href="https://www1.reg.cmu.ac.th/registrationoffice/student_list_enrollment.php?semester=2&amp;year=2569&amp;course=888399&amp;sec=000&amp;lab=701&amp;type=enroll&amp;typee=" target="_blank" rel="noopener noreferrer">Student List of 888399 ↗</a><small>Official CMU registration roster. Admin updates require repository access to publish for everyone.</small><button type="button" id="roster-semester-toggle" aria-expanded="false" aria-controls="roster-semester-settings">Update Semester / Year (Admin)</button></div>
+    <div class="student-list-399-link"><a href="https://www1.reg.cmu.ac.th/registrationoffice/student_list_enrollment.php?semester=2&amp;year=2569&amp;course=888399&amp;sec=000&amp;lab=701&amp;type=enroll&amp;typee=" target="_blank" rel="noopener noreferrer">Student List of 888399 ↗</a><small>Official CMU registration roster. Updates are restricted to authenticated administrators.</small><button type="button" id="roster-semester-toggle" aria-expanded="false" aria-controls="roster-semester-settings">Update Semester / Year (Admin)</button></div>
 <div id="roster-semester-settings" hidden>
 <p><strong>Authorized admins:</strong> thacha.l@icdi.cmu.ac.th · somsak.c@icdi.cmu.ac.th · aniwat.ph@cmu.ac.th · Kanyanatthakarn.in@cmu.ac.th · sureeporn.t@cmu.ac.th</p>
-<p>This editor prepares an updated link locally. Only an authorized GitHub repository administrator can publish a permanent change for all students. This website does not authenticate admins.</p>
+<div class="roster-auth" style="flex-basis:100%"><label>Admin University Email <input type="email" id="roster-admin-email" placeholder="name@cmu.ac.th"></label><button type="button" id="roster-admin-login">Send Login Link</button><button type="button" id="roster-admin-logout" hidden>Sign Out</button><span id="roster-auth-status" aria-live="polite">Admin login is being configured.</span></div><p id="roster-admin-notice">Only authenticated, authorized admins can save the shared link. Students can still open the published roster.</p>
 <label style="flex-basis:100%">Paste New Student List URL <input id="roster-custom-url" type="url" style="width:100%;box-sizing:border-box" placeholder="https://www1.reg.cmu.ac.th/registrationoffice/student_list_enrollment.php?..."></label>
 <label>Academic Year (B.E.) <input id="roster-academic-year" type="number" value="2569"></label>
 <label>Semester <select id="roster-semester"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></label>
 <label>Section <input id="roster-section" value="000"></label><label>Lab <input id="roster-lab" value="701"></label>
-<button type="button" id="roster-semester-save">Prepare Updated Link</button><button type="button" id="roster-semester-clear">Clear</button>
-<a id="roster-admin-publish" href="https://github.com/thacha-icdi/startups-project/edit/main/index.html" target="_blank" rel="noopener noreferrer">Publish via GitHub (Admin login required) ↗</a>
+<button type="button" id="roster-semester-save" disabled>Save & Update Link</button><button type="button" id="roster-semester-clear">Clear</button>
+
 <span id="roster-semester-status" aria-live="polite"></span></div>
     <div class="profile-course-note">Editing profile for <strong id="profile-course-label">888399</strong>. Each course keeps a separate group and startup topic.</div>
     <div class="profile-live-layout"><div class="profile-edit-fields"><div class="profile-pair-row">
@@ -455,7 +455,9 @@ form .task-preview-details dt{font-weight:700;margin-top:12px}form .task-preview
 </main>
 
 <footer><strong>Startups Business Project</strong><span>Proof → Prototype → Test Run</span></footer>
-<script src="script.js?v=20261028-task-preview-3"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase-config.js"></script>
+<script src="script.js?v=20261028-roster-auth-1"></script>
 <script>
 (function(){
  const form=document.getElementById('profile-form'), output=document.getElementById('profile-preview-details'),course=document.getElementById('preview-course');
