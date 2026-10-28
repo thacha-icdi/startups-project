@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Startups Business Project</title>
   <meta name="description" content="A practical startup learning platform from business concept validation to prototype and market test run.">
-  <link rel="stylesheet" href="style.css?v=20261028-profile-preview-2">
+  <link rel="stylesheet" href="style.css?v=20261028-task-preview-3">
 <style id="profile-layout-fix">
 @media screen and (min-width:700px){
 #dashboard #profile-form.profile-card{width:calc(100% - 24px)!important;max-width:1500px!important;margin:0 auto 28px!important}
@@ -26,6 +26,17 @@
 @media screen and (max-width:849px){#concept-form>.concept-live-layout{display:block!important}#concept-form .concept-live-preview{display:block!important;margin-top:20px;background:#f8fafc;border:1px solid #d0d5dd;padding:16px}}
 #concept-preview-details{margin:14px 0}#concept-preview-details dt{font-weight:800;font-size:12px;color:#475467;margin-top:14px}#concept-preview-details dd{margin:4px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.5}#concept-form .concept-live-preview h4{font-size:23px;margin:6px 0}#concept-form .concept-preview-note{font-size:12px;color:#667085;line-height:1.5}
 @media print{#concept-form>.concept-live-layout{display:block!important}#concept-form .concept-live-preview{display:none!important}}
+</style>
+<style id="task-preview-critical">
+@media screen and (min-width:700px){
+form>.task-live-layout{display:grid!important;grid-template-columns:minmax(0,3fr) minmax(260px,2fr)!important;gap:20px!important;align-items:start!important;width:100%!important}
+form>.task-live-layout>.task-edit-fields{grid-column:1!important;min-width:0!important}
+form>.task-live-layout>.task-live-preview{grid-column:2!important;display:block!important;visibility:visible!important;position:sticky!important;top:20px!important;margin:0!important}
+}
+@media screen and (max-width:699px){form>.task-live-layout{display:block!important}form>.task-live-layout>.task-live-preview{display:block!important;margin-top:16px!important}}
+form>.task-live-layout>.task-live-preview{background:#f8fafc!important;border:1px solid #cbd5e1!important;border-top:5px solid #ffb000!important;padding:18px!important;box-sizing:border-box!important}
+form .task-preview-details dt{font-weight:700;margin-top:12px}form .task-preview-details dd{margin:3px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+@media print{form>.task-live-layout{display:block!important}form>.task-live-layout>.task-live-preview{display:none!important}}
 </style>
 </head>
 <body>
@@ -429,7 +440,7 @@
 </main>
 
 <footer><strong>Startups Business Project</strong><span>Proof → Prototype → Test Run</span></footer>
-<script src="script.js?v=20261028-profile-preview-2"></script>
+<script src="script.js?v=20261028-task-preview-3"></script>
 <script>
 (function(){
  const form=document.getElementById('profile-form'), output=document.getElementById('profile-preview-details'),course=document.getElementById('preview-course');
