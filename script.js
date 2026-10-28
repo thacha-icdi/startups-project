@@ -633,20 +633,31 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
   });
 })();
 
-/* Update the official enrollment roster link for a new semester, locally. */
+/* Semester and manual URL updates; browser-local settings. */
 (() => {
  const toggle=document.getElementById('roster-semester-toggle'),panel=document.getElementById('roster-semester-settings');
  const link=document.querySelector('.student-list-399-link a');
  if(!toggle||!panel||!link)return;
  const fields={year:document.getElementById('roster-academic-year'),semester:document.getElementById('roster-semester'),sec:document.getElementById('roster-section'),lab:document.getElementById('roster-lab')};
+ const urlInput=document.getElementById('roster-custom-url');
  const status=document.getElementById('roster-semester-status');
  const key='startups-business-888399-roster-semester-settings';
- function apply(v){const url=new URL(link.href);url.searchParams.set('year',v.year);url.searchParams.set('semester',v.semester);url.searchParams.set('sec',v.sec);url.searchParams.set('lab',v.lab);link.href=url.toString();}
- try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved&&saved.year&&saved.semester){Object.keys(fields).forEach(k=>{if(saved[k]!==undefined)fields[k].value=saved[k];});apply(saved);}}catch(e){}
+ const original=link.href;
+ function validUrl(raw){
+   try{const u=new URL(raw);return u.protocol==='https:'&&u.hostname==='www1.reg.cmu.ac.th'&&u.pathname==='/registrationoffice/student_list_enrollment.php'?u:null;}catch(e){return null;}
+ }
+ function fill(u){for(const [k,el] of Object.entries(fields)){const param=k==='year'?'year':k==='semester'?'semester':k;const v=u.searchParams.get(param);if(v!==null)el.value=v;}}
+ try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved){const u=validUrl(saved.url||'');if(u){link.href=u.href;urlInput.value=u.href;fill(u);}else if(saved.year&&saved.semester){const fallback=new URL(original);Object.entries(fields).forEach(([k,el])=>{if(saved[k]!==undefined)el.value=saved[k];fallback.searchParams.set(k,el.value);});link.href=fallback.href;urlInput.value=fallback.href;}}}catch(e){}
+ if(!urlInput.value)urlInput.value=link.href;
  toggle.addEventListener('click',()=>{panel.hidden=!panel.hidden;toggle.setAttribute('aria-expanded',String(!panel.hidden));});
+ urlInput.addEventListener('change',()=>{const u=validUrl(urlInput.value.trim());if(u){fill(u);status.textContent='URL accepted. Press Save & Update Link.';}else status.textContent='Use a valid official CMU enrollment-list URL.';});
  document.getElementById('roster-semester-save').addEventListener('click',()=>{
- const v=Object.fromEntries(Object.entries(fields).map(([k,el])=>[k,el.value.trim()]));
- if(!/^25\d{2}$|^26\d{2}$/.test(v.year)||!['1','2','3'].includes(v.semester)||!/^\d{1,4}$/.test(v.sec)||!/^\d{1,4}$/.test(v.lab)){status.textContent='Check year, semester, section and lab.';return;}
- apply(v);try{localStorage.setItem(key,JSON.stringify(v));status.textContent='Link updated in this browser.';}catch(e){status.textContent='Link updated; browser storage unavailable.';}
+   const raw=urlInput.value.trim();const u=validUrl(raw);
+   if(!u){status.textContent='Please paste a valid official CMU student-list URL.';return;}
+   const v=Object.fromEntries(Object.entries(fields).map(([k,el])=>[k,el.value.trim()]));
+   if(!/^2[5-6]\\d{2}$/.test(v.year)||!['1','2','3'].includes(v.semester)||!/^[0-9]{1,4}$/.test(v.sec)||!/^[0-9]{1,4}$/.test(v.lab)){status.textContent='Check year, semester, section and lab.';return;}
+   for(const [k,value] of Object.entries(v))u.searchParams.set(k,value);
+   link.href=u.href;urlInput.value=u.href;
+   try{localStorage.setItem(key,JSON.stringify({...v,url:u.href}));status.textContent='Student List link updated in this browser.';}catch(e){status.textContent='Link updated; browser storage unavailable.';}
  });
 })();
