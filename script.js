@@ -651,6 +651,11 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
  if(!urlInput.value)urlInput.value=link.href;
  toggle.addEventListener('click',()=>{panel.hidden=!panel.hidden;toggle.setAttribute('aria-expanded',String(!panel.hidden));});
  urlInput.addEventListener('change',()=>{const u=validUrl(urlInput.value.trim());if(u){fill(u);status.textContent='URL accepted. Press Save & Update Link.';}else status.textContent='Use a valid official CMU enrollment-list URL.';});
+ document.getElementById('roster-semester-clear').addEventListener('click',()=>{
+   urlInput.value='';
+   fields.year.value='';fields.semester.value='2';fields.sec.value='';fields.lab.value='';
+   status.textContent='Fields cleared. The existing Student List link remains unchanged until you save a new one.';
+ });
  document.getElementById('roster-semester-save').addEventListener('click',()=>{
    const raw=urlInput.value.trim();const u=validUrl(raw);
    if(!u){status.textContent='Please paste a valid official CMU student-list URL.';return;}
