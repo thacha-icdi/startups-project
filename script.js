@@ -634,24 +634,57 @@ document.querySelectorAll('form .email-task-button').forEach(button => {
 })();
 
 
-/* Admin roster URL preparation; publication requires GitHub repository authorization. */
+/* Shared roster URL: Supabase authentication and server-enforced RLS. */
 (() => {
- const toggle=document.getElementById('roster-semester-toggle');
- const panel=document.getElementById('roster-semester-settings');
- const urlInput=document.getElementById('roster-custom-url');
- const link=document.querySelector('.student-list-399-link a');
+ const toggle=document.getElementById('roster-semester-toggle'),panel=document.getElementById('roster-semester-settings');
+ const urlInput=document.getElementById('roster-custom-url'),link=document.querySelector('.student-list-399-link a');
  if(!toggle||!panel||!urlInput||!link)return;
  const year=document.getElementById('roster-academic-year'),semester=document.getElementById('roster-semester'),sec=document.getElementById('roster-section'),lab=document.getElementById('roster-lab'),status=document.getElementById('roster-semester-status');
- urlInput.value=link.href;
- const parse=()=>{try{const u=new URL(urlInput.value.trim());return u.protocol==='https:'&&u.hostname==='www1.reg.cmu.ac.th'&&u.pathname==='/registrationoffice/student_list_enrollment.php'?u:null;}catch(e){return null;}};
+ const authStatus=document.getElementById('roster-auth-status'),email=document.getElementById('roster-admin-email'),login=document.getElementById('roster-admin-login'),logout=document.getElementById('roster-admin-logout'),save=document.getElementById('roster-semester-save');
+ const config=window.STARTUPS_SUPABASE_CONFIG||{};
+ const ready=!!(config.url&&config.publishableKey&&window.supabase?.createClient);
+ const client=ready?window.supabase.createClient(config.url,config.publishableKey):null;
+ let authorized=false;
+ const valid=raw=>{try{const u=new URL(raw);return u.protocol==='https:'&&u.hostname==='www1.reg.cmu.ac.th'&&u.pathname==='/registrationoffice/student_list_enrollment.php'&&u.searchParams.get('course')==='888399'?u:null;}catch(e){return null;}};
+ const fill=u=>{for(const [k,el] of Object.entries({year,semester,sec,lab})){const v=u.searchParams.get(k);if(v!==null)el.value=v;}urlInput.value=u.href;};
+ const publish=u=>{link.href=u.href;fill(u);};
+ const setAuth=(ok,message)=>{authorized=ok;save.disabled=!ok;login.hidden=ok;logout.hidden=!ok;email.disabled=ok;authStatus.textContent=message;};
+ async function refreshAuth(){
+   if(!client){setAuth(false,'Setup required: connect Supabase before admin login is available.');return;}
+   const {data:{user},error}=await client.auth.getUser();
+   if(error||!user){setAuth(false,'Sign in with your authorized university email.');return;}
+   const {data, error:checkError}=await client.rpc('is_roster_admin');
+   setAuth(data===true&&!checkError,data===true&&!checkError?'Signed in as authorized admin: '+user.email:'This account does not have administrator permission.');
+ }
+ async function loadPublished(){
+   if(!client)return;
+   const {data,error}=await client.from('site_settings').select('setting_value').eq('setting_key','student_roster_888399').single();
+   if(!error&&data&&valid(data.setting_value))publish(valid(data.setting_value));
+ }
  toggle.addEventListener('click',()=>{panel.hidden=!panel.hidden;toggle.setAttribute('aria-expanded',String(!panel.hidden));});
- urlInput.addEventListener('change',()=>{const u=parse();if(!u){status.textContent='Use an official CMU student-list URL.';return;}for(const [k,el] of Object.entries({year,semester,sec,lab})){const v=u.searchParams.get(k);if(v!==null)el.value=v;}status.textContent='URL accepted.';});
- document.getElementById('roster-semester-save').addEventListener('click',()=>{
- const u=parse();if(!u){status.textContent='Invalid official CMU student-list URL.';return;}
- if(!/^2[5-6][0-9]{2}$/.test(year.value)||!['1','2','3'].includes(semester.value)||!/^[0-9]{1,4}$/.test(sec.value)||!/^[0-9]{1,4}$/.test(lab.value)){status.textContent='Check year, semester, section and lab.';return;}
- for(const [k,el] of Object.entries({year,semester,sec,lab}))u.searchParams.set(k,el.value);
- urlInput.value=u.href;
- status.textContent='Updated URL prepared. To publish for all students, an authorized admin must edit index.html through GitHub.';
+ urlInput.value=link.href;
+ urlInput.addEventListener('change',()=>{const u=valid(urlInput.value.trim());if(u){fill(u);status.textContent='Official CMU URL accepted.';}else status.textContent='Enter an official CMU 888399 enrollment-list URL.';});
+ login.addEventListener('click',async()=>{
+   if(!client){authStatus.textContent='Supabase has not been configured.';return;}
+   const address=email.value.trim().toLowerCase();
+   if(!address){authStatus.textContent='Enter your university email.';return;}
+   const {error}=await client.auth.signInWithOtp({email:address,options:{emailRedirectTo:location.origin+location.pathname,shouldCreateUser:false}});
+   authStatus.textContent=error?'Login could not be sent. Contact the system administrator.':'Check your email for the secure login link.';
  });
- document.getElementById('roster-semester-clear').addEventListener('click',()=>{urlInput.value='';year.value='';semester.value='2';sec.value='';lab.value='';status.textContent='Editor cleared. Published link unchanged.';});
+ logout.addEventListener('click',async()=>{if(client)await client.auth.signOut();await refreshAuth();});
+ save.addEventListener('click',async()=>{
+   if(!client||!authorized){status.textContent='Authorized admin sign-in is required.';return;}
+   const u=valid(urlInput.value.trim());
+   if(!u){status.textContent='Invalid official CMU 888399 URL.';return;}
+   if(!/^2[5-6][0-9]{2}$/.test(year.value)||!['1','2','3'].includes(semester.value)||!/^[0-9]{1,4}$/.test(sec.value)||!/^[0-9]{1,4}$/.test(lab.value)){status.textContent='Check year, semester, section and lab.';return;}
+   for(const [k,el] of Object.entries({year,semester,sec,lab}))u.searchParams.set(k,el.value);
+   save.disabled=true;
+   const {data,error}=await client.from('site_settings').update({setting_value:u.href,updated_at:new Date().toISOString()}).eq('setting_key','student_roster_888399').select('setting_value').single();
+   save.disabled=!authorized;
+   if(error||!data){status.textContent='Update denied or failed. No change was published.';return;}
+   publish(u);status.textContent='Saved securely. The shared student-list link is now updated for everyone.';
+ });
+ document.getElementById('roster-semester-clear').addEventListener('click',()=>{urlInput.value='';year.value='';semester.value='2';sec.value='';lab.value='';status.textContent='Editor cleared; published link unchanged.';});
+ if(client){client.auth.onAuthStateChange(()=>{setTimeout(refreshAuth,0);});loadPublished();refreshAuth();}
+ else refreshAuth();
 })();
